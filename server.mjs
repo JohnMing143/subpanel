@@ -7,6 +7,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, "public");
 const port = Number(process.env.PORT || 4173);
 const maxBytes = 16 * 1024 * 1024;
+const blockedHeaderNames = new Set([
+  "host",
+  "connection",
+  "content-length",
+  "transfer-encoding",
+  "upgrade",
+  "keep-alive",
+  "proxy-authenticate",
+  "proxy-authorization",
+  "te",
+  "trailer"
+]);
 
 const mimeTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -38,7 +50,7 @@ function safeStaticPath(urlPath) {
   return filePath;
 }
 
-async function fetchSubscriptionData(target, userAgent) {
+async function fetchSubscriptionData(target, userAgent, customHeaders = {}) {
   let parsed;
   try {
     parsed = new URL(target);
@@ -57,10 +69,7 @@ async function fetchSubscriptionData(target, userAgent) {
     const upstream = await fetch(parsed, {
       signal: controller.signal,
       redirect: "follow",
-      headers: {
-        "accept": "*/*",
-        "user-agent": userAgent
-      }
+      headers: buildUpstreamHeaders(userAgent, customHeaders)
     });
 
     const reader = upstream.body?.getReader();
@@ -99,10 +108,33 @@ async function fetchSubscriptionData(target, userAgent) {
   }
 }
 
-async function fetchSubscription(reqUrl, res) {
-  const target = reqUrl.searchParams.get("url") || "";
-  const userAgent = reqUrl.searchParams.get("ua") || "subpanel/0.1 mihomo";
-  const data = await fetchSubscriptionData(target, userAgent);
+function buildUpstreamHeaders(userAgent, customHeaders) {
+  const headers = { accept: "*/*", ...sanitizeRequestHeaders(customHeaders) };
+  const ua = String(userAgent || "").trim();
+  if (ua) headers["user-agent"] = ua;
+  if (!headers["user-agent"]) headers["user-agent"] = "subpanel/0.1 mihomo";
+  return headers;
+}
+
+function sanitizeRequestHeaders(customHeaders) {
+  const headers = {};
+  if (!customHeaders || typeof customHeaders !== "object" || Array.isArray(customHeaders)) return headers;
+  for (const [rawName, rawValue] of Object.entries(customHeaders)) {
+    const name = String(rawName || "").trim().toLowerCase();
+    const value = String(rawValue ?? "").trim();
+    if (!/^[a-z0-9!#$%&'*+.^_`|~-]+$/i.test(name)) continue;
+    if (blockedHeaderNames.has(name) || name.startsWith(":")) continue;
+    if (!value || value.length > 4096) continue;
+    headers[name] = value;
+  }
+  return headers;
+}
+
+async function fetchSubscription(req, reqUrl, res) {
+  const payload = await readJsonBody(req);
+  const target = payload.url || "";
+  const userAgent = payload.userAgent || "subpanel/0.1 mihomo";
+  const data = await fetchSubscriptionData(target, userAgent, payload.headers || {});
   json(res, data.status && !data.body ? data.status : 200, data);
 }
 
@@ -176,20 +208,15 @@ async function resolveInput(req, res) {
   try {
     const payload = await readJsonBody(req);
     const userAgent = payload.userAgent || "subpanel/0.1 mihomo";
-    const items = splitSmartInput(payload.content || "");
+    const urls = Array.isArray(payload.urls) ? payload.urls.filter(isHttpUrl) : [];
     const resolved = [];
 
-    for (const item of items) {
-      if (item.kind !== "url") {
-        resolved.push({ kind: "content", source: "inline", body: item.value });
-        continue;
-      }
-
-      const data = await fetchSubscriptionData(item.value, userAgent);
+    for (const url of urls) {
+      const data = await fetchSubscriptionData(url, userAgent, payload.headers || {});
       resolved.push({
         kind: "content",
         source: "url",
-        url: item.value,
+        url,
         ok: data.ok,
         status: data.status,
         headers: data.headers || {},
@@ -208,7 +235,11 @@ const server = http.createServer(async (req, res) => {
   const reqUrl = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
 
   if (reqUrl.pathname === "/api/fetch") {
-    await fetchSubscription(reqUrl, res);
+    if (req.method !== "POST") {
+      json(res, 405, { ok: false, error: "Method not allowed" });
+      return;
+    }
+    await fetchSubscription(req, reqUrl, res);
     return;
   }
 

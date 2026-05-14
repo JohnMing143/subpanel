@@ -6,6 +6,23 @@
     <meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f1110" media="(prefers-color-scheme: dark)">
     <title>subpanel</title>
+    <script>
+      (() => {
+        try {
+          const raw = localStorage.getItem("subpanel-state-v1") || localStorage.getItem("subboost-local-state-v1");
+          const ui = raw ? (JSON.parse(raw).ui || {}) : {};
+          const preference = ["system", "light", "dark"].includes(ui.theme) ? ui.theme : "system";
+          const theme = preference === "system"
+            ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+            : preference;
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.themePreference = preference;
+          document.documentElement.lang = ui.lang === "en" ? "en" : "zh-CN";
+        } catch {
+          document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="./styles.css">
     <script defer src="./app.js"></script>
   </head>

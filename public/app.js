@@ -310,6 +310,505 @@ const POLICY_LABELS = {
   reject: "拦截"
 };
 
+const I18N = {
+  zh: {
+    "app.subtitle": "Clash / Mihomo 配置生成器",
+    "app.nodes": "{count} 个节点",
+    "app.nodeBadge": "{count} 节点",
+    "app.providerBadge": "{count} provider",
+    "theme.label": "外观",
+    "theme.system": "跟随系统",
+    "theme.light": "浅色",
+    "theme.dark": "深色",
+    "language.label": "语言",
+    "language.zh": "中文",
+    "language.en": "English",
+    "template.label": "分流模板",
+    "template.minimal.name": "基础",
+    "template.minimal.description": "基础代理组、广告、私有网络、国内与非中国分流",
+    "template.standard.name": "日常",
+    "template.standard.description": "基础分流加 AI、视频、常用平台",
+    "template.full.name": "完整",
+    "template.full.description": "开启扩展服务分流",
+    "ready": "可以生成配置",
+    "waitingImport": "等待导入节点",
+    "generate": "生成配置",
+    "routing.title": "分流去向",
+    "policy.proxy": "代理",
+    "policy.direct": "直连",
+    "policy.reject": "拦截",
+    "source.title": "输入",
+    "source.parseAfterPaste": "粘贴后解析",
+    "source.placeholder": "粘贴订阅链接或节点链接，一行一个；也可粘贴完整 Clash / Mihomo YAML",
+    "source.parse": "解析",
+    "source.parseTitle": "解析此来源",
+    "source.providerTitle": "保存 provider 源",
+    "source.removeTitle": "删除导入源",
+    "source.advanced": "高级导入选项",
+    "source.name": "名称",
+    "source.namePlaceholder": "导入源名称",
+    "source.tag": "标签",
+    "source.tagPlaceholder": "例：机场 A",
+    "source.nameTemplate": "命名模板",
+    "source.providerMode": "使用 proxy-providers",
+    "source.nameHint": "命名占位符：{name}、{tag}、{type}、{index}",
+    "source.restrictedHeaders": "受限订阅兼容",
+    "source.requestHeaders": "临时请求头",
+    "source.requestHeadersPlaceholder": "一行一个请求头，例如：\nAccept: */*\nAuthorization: Bearer ...\nCookie: ...",
+    "source.requestHeadersHint": "这些请求头只在本次页面会话中使用，不会写入本地存储。Host、Content-Length 等连接控制头会被忽略。",
+    "status.notImported": "未导入",
+    "status.parsing": "解析中...",
+    "status.providerSaved": "provider 模式已保存",
+    "status.providerMode": "provider 模式",
+    "status.importFailed": "导入失败",
+    "status.importedNodes": "已导入 {count} 节点",
+    "status.importedWarnings": "已导入 {count} 节点，{warnings} 个提醒",
+    "advanced.nodes.title": "节点管理",
+    "advanced.nodes.subtitle": "改名、停用、监听端口和批量处理",
+    "advanced.nodes.hint": "需要精修节点名或端口时再打开这里。",
+    "advanced.nodes.clear": "清空节点",
+    "advanced.nodes.empty": "先导入订阅、YAML 或节点链接。",
+    "advanced.nodes.deleted": "已删除节点",
+    "advanced.nodes.restoreAll": "全部恢复",
+    "advanced.nodes.restore": "恢复",
+    "advanced.nodes.moreDeleted": "还有 {count} 个已删除节点。",
+    "bulk.title": "批量重命名与端口",
+    "bulk.include": "筛选包含正则",
+    "bulk.exclude": "筛选排除正则",
+    "bulk.find": "查找正则",
+    "bulk.replace": "替换为",
+    "bulk.trim": "去除首尾空格",
+    "bulk.normalizeSpaces": "空白归一化",
+    "bulk.rename": "批量重命名",
+    "bulk.portStart": "起始端口",
+    "bulk.fillPorts": "填充端口",
+    "bulk.clearPorts": "删除端口",
+    "table.enabled": "启用",
+    "table.name": "名称",
+    "table.type": "类型",
+    "table.source": "来源",
+    "table.address": "地址",
+    "table.listenerPort": "监听端口",
+    "table.order": "顺序",
+    "table.action": "操作",
+    "common.empty": "可空",
+    "common.manual": "手动",
+    "common.deleteNode": "删除节点",
+    "common.enabled": "启用",
+    "common.all": "全部",
+    "common.none": "无",
+    "groups.title": "代理组",
+    "groups.subtitle": "筛选组、自动测速组与链式 relay",
+    "groups.customBadge": "{count} 自定义",
+    "groups.filterTitle": "筛选代理组",
+    "groups.filterHint": "按来源、地区关键词或正则创建独立分组。",
+    "groups.type": "类型",
+    "groups.source": "来源",
+    "groups.allSources": "全部来源",
+    "groups.currentMatches": "当前命中 {count} 个节点",
+    "groups.addFilter": "添加筛选组",
+    "groups.noFilter": "暂无筛选组。",
+    "groups.chainTitle": "链式代理组",
+    "groups.chainHint": "生成 Mihomo relay 组：入口节点到落地节点。",
+    "groups.entry": "入口节点",
+    "groups.exit": "落地节点",
+    "groups.selectNode": "选择节点",
+    "groups.relayHint": "relay 组通常需要客户端内核支持。",
+    "groups.addChain": "添加链式组",
+    "groups.noChain": "暂无链式代理组。",
+    "groups.include": "包含",
+    "groups.exclude": "排除",
+    "groups.entryShort": "入口",
+    "groups.exitShort": "落地",
+    "groups.unselected": "未选择",
+    "rules.title": "分流规则",
+    "rules.subtitle": "内置模块默认够用，自定义规则按需添加",
+    "rules.bulkTitle": "批量导入规则",
+    "rules.bulkHint": "缺少目标时使用右侧选择的目标。",
+    "rules.target": "目标分组",
+    "rules.example": "快速示例",
+    "rules.customCount": "当前已有 {count} 条自定义规则。",
+    "rules.import": "导入规则",
+    "rules.ruleCount": "{count} 条",
+    "preview.title": "配置预览",
+    "preview.generatedAt": "生成于 {time}",
+    "preview.waiting": "等待生成",
+    "preview.copy": "复制",
+    "preview.download": "下载",
+    "preview.placeholder": "# 请先添加订阅或节点并点击生成配置\n",
+    "system.title": "系统设置",
+    "system.subtitle": "端口、测速、局域网、IPv6 和 DNS YAML",
+    "system.profileName": "配置名称",
+    "system.profilePlaceholder": "我的配置",
+    "system.mode": "运行模式",
+    "system.testUrl": "测速 URL",
+    "system.testInterval": "测速间隔秒",
+    "system.allowLan": "允许局域网连接",
+    "system.ipv6": "启用 IPv6",
+    "system.resetDns": "恢复默认",
+    "system.dnsPolicyTitle": "私有 DNS 映射",
+    "system.dnsPolicyHint": "给受限节点域名指定机场要求的 DNS 服务器，生成到 dns.nameserver-policy。",
+    "system.dnsPolicyDomain": "节点域名",
+    "system.dnsPolicyDomainPlaceholder": "例：+.node.example.com",
+    "system.dnsPolicyServer": "DNS 服务器",
+    "system.dnsPolicyServerPlaceholder": "例：https://dns.example.com/dns-query",
+    "system.addDnsPolicy": "添加映射",
+    "system.noDnsPolicy": "暂无私有 DNS 映射。",
+    "system.removeDnsPolicy": "删除 DNS 映射",
+    "validation.errorTitle": "生成前需要修正",
+    "validation.warnTitle": "可用性提醒",
+    "module.category.core": "核心",
+    "module.category.service": "服务",
+    "module.category.social": "社交",
+    "module.category.media": "媒体",
+    "module.category.game": "游戏",
+    "module.category.tech": "技术",
+    "module.category.finance": "金融",
+    "module.category.other": "其他",
+    "module.select": "节点选择",
+    "module.auto": "自动选择",
+    "module.ad": "广告拦截",
+    "module.private": "私有网络",
+    "module.cn": "国内服务",
+    "module.global": "非中国",
+    "module.final": "漏网之鱼",
+    "module.ai": "AI 服务",
+    "module.gemini": "Gemini",
+    "module.youtube": "油管视频",
+    "module.google": "谷歌服务",
+    "module.microsoft": "微软服务",
+    "module.apple": "苹果服务",
+    "module.telegram": "电报消息",
+    "module.twitter": "Twitter/X",
+    "module.meta": "Meta 系",
+    "module.discord": "Discord",
+    "module.social-other": "其他社交",
+    "module.netflix": "奈飞",
+    "module.disney": "迪士尼+",
+    "module.streaming-west": "欧美流媒体",
+    "module.streaming-asia": "亚洲流媒体",
+    "module.steam": "Steam",
+    "module.gaming-pc": "PC 游戏",
+    "module.gaming-console": "主机游戏",
+    "module.github": "代码托管",
+    "module.cloud": "云服务",
+    "module.dev-tools": "开发工具",
+    "module.storage": "网盘存储",
+    "module.payment": "支付平台",
+    "module.crypto": "加密货币",
+    "module.google-scholar": "谷歌学术",
+    "module.education": "教育学术",
+    "module.news": "新闻资讯",
+    "module.shopping": "海淘购物",
+    "module.adult": "成人内容",
+    "toast.sourceRemoved": "导入源已删除，相关节点已移到删除列表",
+    "toast.providerSaved": "已保存为 proxy-provider 源",
+    "toast.importedNodes": "已导入 {count} 个节点",
+    "toast.templateApplied": "已应用 {name}",
+    "toast.nodesCleared": "节点已清空，可在删除列表恢复",
+    "toast.invalidRegex": "查找正则无效",
+    "toast.renamedNodes": "已重命名 {count} 个节点",
+    "toast.invalidPortStart": "起始端口无效或超出范围",
+    "toast.filledPorts": "已填充 {count} 个监听端口",
+    "toast.clearedPorts": "已删除 {count} 个监听端口",
+    "toast.noFilterMatches": "当前筛选条件没有命中节点",
+    "toast.needDifferentChainNodes": "请选择不同的入口和落地节点",
+    "toast.importedRules": "已导入 {count} 条规则",
+    "toast.dnsPolicyAdded": "已添加 DNS 映射",
+    "toast.invalidDnsPolicy": "请填写节点域名和 DNS 服务器",
+    "toast.fixErrors": "配置未生成，请先修正校验错误",
+    "toast.generatedBlocked": "生成结果存在语法风险，已阻止更新",
+    "toast.generatedWarn": "配置已生成，但有提醒需要留意",
+    "toast.generated": "配置已生成",
+    "toast.copied": "YAML 已复制",
+    "error.pasteFirst": "请先粘贴订阅链接或节点链接",
+    "error.providerSingleUrl": "proxy-providers 只适合单个订阅链接；混合输入请关闭该选项",
+    "error.noParsedNodes": "未解析到有效节点",
+    "error.noNodesInSubscription": "订阅未解析到节点：{url}",
+    "error.unparsedChunk": "粘贴内容里有片段未解析到节点",
+    "error.fetchFailed": "获取失败",
+    "error.remoteHttp": "远程返回 HTTP {status}",
+    "error.backendFailed": "后端解析失败",
+    "validation.needNode": "至少需要一个启用节点，或一个 proxy-providers 订阅源。",
+    "validation.mode": "运行模式只能是 rule、global 或 direct。",
+    "validation.testUrl": "测速 URL 必须是 http 或 https 地址。",
+    "validation.testInterval": "测速间隔至少需要 30 秒。",
+    "validation.providerUrl": "Provider 源「{name}」必须使用 http/https 订阅链接。",
+    "validation.duplicateNames": "存在重复节点名，生成时会自动追加序号避免 YAML 代理名冲突。",
+    "validation.portRequired": "{label} 必须填写。",
+    "validation.portInteger": "{label} 必须是 1-65535 的整数。",
+    "validation.portDuplicate": "{label} 与 {owner} 使用了同一个端口 {port}。",
+    "validation.invalidRegex": "{label} 不是有效正则。",
+    "validation.nodeUnnamed": "存在未命名节点。",
+    "validation.nodeMissingType": "节点「{label}」缺少 type。",
+    "validation.yamlNodeMissing": "YAML 节点「{label}」缺少 name 或 type。",
+    "validation.nodeMissingServer": "节点「{label}」缺少 server。",
+    "validation.nodeInvalidPort": "节点「{label}」端口无效。",
+    "validation.nodeMissingField": "节点「{label}」缺少 {field}。",
+    "validation.nodeUnsupported": "节点「{label}」类型 {type} 可能需要手动确认客户端是否支持。",
+    "validation.dnsEmpty": "DNS YAML 不能为空。",
+    "validation.dnsRoot": "DNS YAML 必须包含顶层 dns:。",
+    "validation.dnsTab": "DNS YAML 不能包含 Tab，请使用空格缩进。",
+    "validation.dnsUndefined": "DNS YAML 中包含 undefined 或 NaN。",
+    "validation.dnsQuote": "DNS YAML 中存在未闭合的引号。",
+    "validation.dnsTopKeys": "DNS 编辑区只能放 dns 配置，不应包含顶层字段：{keys}。",
+    "validation.dnsIndent": "DNS YAML 第 {line} 行缩进不是 2 的倍数。",
+    "validation.generatedUndefined": "生成结果中包含 undefined 或 NaN。",
+    "validation.generatedMissing": "生成结果缺少 {section}",
+    "validation.generatedZeroPort": "生成结果中存在 0 端口。",
+    "validation.generatedDuplicateTop": "生成结果存在重复顶层字段：{keys}。",
+    "validation.noMatch": "生成结果没有 MATCH 兜底规则。"
+  },
+  en: {
+    "app.subtitle": "Clash / Mihomo config generator",
+    "app.nodes": "{count} nodes",
+    "app.nodeBadge": "{count} nodes",
+    "app.providerBadge": "{count} providers",
+    "theme.label": "Theme",
+    "theme.system": "System",
+    "theme.light": "Light",
+    "theme.dark": "Dark",
+    "language.label": "Language",
+    "language.zh": "Chinese",
+    "language.en": "English",
+    "template.label": "Routing Template",
+    "template.minimal.name": "Basic",
+    "template.minimal.description": "Core groups, ads, private network, China, and non-China routing",
+    "template.standard.name": "Daily",
+    "template.standard.description": "Basic routing plus AI, video, and common platforms",
+    "template.full.name": "Full",
+    "template.full.description": "Enable extended service routing",
+    "ready": "Ready to generate",
+    "waitingImport": "Waiting for nodes",
+    "generate": "Generate",
+    "routing.title": "Routing",
+    "policy.proxy": "Proxy",
+    "policy.direct": "Direct",
+    "policy.reject": "Reject",
+    "source.title": "Input",
+    "source.parseAfterPaste": "Paste, then parse",
+    "source.placeholder": "Paste subscription URLs or node links, one per line. Full Clash / Mihomo YAML also works.",
+    "source.parse": "Parse",
+    "source.parseTitle": "Parse this source",
+    "source.providerTitle": "Save as provider source",
+    "source.removeTitle": "Remove source",
+    "source.advanced": "Advanced import options",
+    "source.name": "Name",
+    "source.namePlaceholder": "Source name",
+    "source.tag": "Tag",
+    "source.tagPlaceholder": "Example: Provider A",
+    "source.nameTemplate": "Name template",
+    "source.providerMode": "Use proxy-providers",
+    "source.nameHint": "Placeholders: {name}, {tag}, {type}, {index}",
+    "source.restrictedHeaders": "Restricted Subscription",
+    "source.requestHeaders": "Temporary request headers",
+    "source.requestHeadersPlaceholder": "One header per line, for example:\nAccept: */*\nAuthorization: Bearer ...\nCookie: ...",
+    "source.requestHeadersHint": "These headers are only used in the current page session and are not saved locally. Host, Content-Length, and other connection headers are ignored.",
+    "status.notImported": "Not imported",
+    "status.parsing": "Parsing...",
+    "status.providerSaved": "Provider mode saved",
+    "status.providerMode": "Provider mode",
+    "status.importFailed": "Import failed",
+    "status.importedNodes": "Imported {count} nodes",
+    "status.importedWarnings": "Imported {count} nodes, {warnings} warnings",
+    "advanced.nodes.title": "Nodes",
+    "advanced.nodes.subtitle": "Rename, disable, listener ports, and bulk tools",
+    "advanced.nodes.hint": "Open this only when you need to tune names or ports.",
+    "advanced.nodes.clear": "Clear nodes",
+    "advanced.nodes.empty": "Import a subscription, YAML, or node links first.",
+    "advanced.nodes.deleted": "Deleted nodes",
+    "advanced.nodes.restoreAll": "Restore all",
+    "advanced.nodes.restore": "Restore",
+    "advanced.nodes.moreDeleted": "{count} more deleted nodes.",
+    "bulk.title": "Bulk rename and ports",
+    "bulk.include": "Include regex",
+    "bulk.exclude": "Exclude regex",
+    "bulk.find": "Find regex",
+    "bulk.replace": "Replace with",
+    "bulk.trim": "Trim ends",
+    "bulk.normalizeSpaces": "Normalize spaces",
+    "bulk.rename": "Bulk rename",
+    "bulk.portStart": "Start port",
+    "bulk.fillPorts": "Fill ports",
+    "bulk.clearPorts": "Clear ports",
+    "table.enabled": "Enabled",
+    "table.name": "Name",
+    "table.type": "Type",
+    "table.source": "Source",
+    "table.address": "Address",
+    "table.listenerPort": "Listener port",
+    "table.order": "Order",
+    "table.action": "Action",
+    "common.empty": "Optional",
+    "common.manual": "Manual",
+    "common.deleteNode": "Delete node",
+    "common.enabled": "Enabled",
+    "common.all": "All",
+    "common.none": "None",
+    "groups.title": "Proxy Groups",
+    "groups.subtitle": "Filter groups, url-test groups, and relay chains",
+    "groups.customBadge": "{count} custom",
+    "groups.filterTitle": "Filter Groups",
+    "groups.filterHint": "Create groups by source, region keywords, or regex.",
+    "groups.type": "Type",
+    "groups.source": "Source",
+    "groups.allSources": "All sources",
+    "groups.currentMatches": "{count} nodes matched",
+    "groups.addFilter": "Add filter group",
+    "groups.noFilter": "No filter groups yet.",
+    "groups.chainTitle": "Relay Chains",
+    "groups.chainHint": "Generate Mihomo relay groups from entry node to exit node.",
+    "groups.entry": "Entry node",
+    "groups.exit": "Exit node",
+    "groups.selectNode": "Select node",
+    "groups.relayHint": "Relay groups require client core support.",
+    "groups.addChain": "Add relay group",
+    "groups.noChain": "No relay groups yet.",
+    "groups.include": "Include",
+    "groups.exclude": "Exclude",
+    "groups.entryShort": "Entry",
+    "groups.exitShort": "Exit",
+    "groups.unselected": "Not selected",
+    "rules.title": "Rules",
+    "rules.subtitle": "Built-in modules are enough by default. Add custom rules only when needed.",
+    "rules.bulkTitle": "Bulk Import Rules",
+    "rules.bulkHint": "When a target is missing, the selected target is used.",
+    "rules.target": "Target group",
+    "rules.example": "Quick example",
+    "rules.customCount": "{count} custom rules.",
+    "rules.import": "Import rules",
+    "rules.ruleCount": "{count} rules",
+    "preview.title": "Preview",
+    "preview.generatedAt": "Generated at {time}",
+    "preview.waiting": "Waiting",
+    "preview.copy": "Copy",
+    "preview.download": "Download",
+    "preview.placeholder": "# Add a subscription or node, then generate the config\n",
+    "system.title": "System",
+    "system.subtitle": "Ports, health check, LAN, IPv6, and DNS YAML",
+    "system.profileName": "Profile name",
+    "system.profilePlaceholder": "My config",
+    "system.mode": "Mode",
+    "system.testUrl": "Health check URL",
+    "system.testInterval": "Health check interval",
+    "system.allowLan": "Allow LAN",
+    "system.ipv6": "Enable IPv6",
+    "system.resetDns": "Reset defaults",
+    "system.dnsPolicyTitle": "Private DNS Mapping",
+    "system.dnsPolicyHint": "Route restricted node domains to the DNS server required by the provider. Generated into dns.nameserver-policy.",
+    "system.dnsPolicyDomain": "Node domain",
+    "system.dnsPolicyDomainPlaceholder": "Example: +.node.example.com",
+    "system.dnsPolicyServer": "DNS server",
+    "system.dnsPolicyServerPlaceholder": "Example: https://dns.example.com/dns-query",
+    "system.addDnsPolicy": "Add mapping",
+    "system.noDnsPolicy": "No private DNS mappings yet.",
+    "system.removeDnsPolicy": "Remove DNS mapping",
+    "validation.errorTitle": "Fix before generating",
+    "validation.warnTitle": "Usability note",
+    "module.category.core": "Core",
+    "module.category.service": "Services",
+    "module.category.social": "Social",
+    "module.category.media": "Media",
+    "module.category.game": "Games",
+    "module.category.tech": "Tech",
+    "module.category.finance": "Finance",
+    "module.category.other": "Other",
+    "module.select": "Node Select",
+    "module.auto": "Auto Select",
+    "module.ad": "Ad Blocking",
+    "module.private": "Private Network",
+    "module.cn": "China Services",
+    "module.global": "Non-China",
+    "module.final": "Final",
+    "module.ai": "AI Services",
+    "module.gemini": "Gemini",
+    "module.youtube": "YouTube",
+    "module.google": "Google Services",
+    "module.microsoft": "Microsoft",
+    "module.apple": "Apple",
+    "module.telegram": "Telegram",
+    "module.twitter": "Twitter/X",
+    "module.meta": "Meta",
+    "module.discord": "Discord",
+    "module.social-other": "Other Social",
+    "module.netflix": "Netflix",
+    "module.disney": "Disney+",
+    "module.streaming-west": "Western Streaming",
+    "module.streaming-asia": "Asian Streaming",
+    "module.steam": "Steam",
+    "module.gaming-pc": "PC Games",
+    "module.gaming-console": "Console Games",
+    "module.github": "Code Hosting",
+    "module.cloud": "Cloud Services",
+    "module.dev-tools": "Developer Tools",
+    "module.storage": "Cloud Storage",
+    "module.payment": "Payments",
+    "module.crypto": "Crypto",
+    "module.google-scholar": "Google Scholar",
+    "module.education": "Education",
+    "module.news": "News",
+    "module.shopping": "Shopping",
+    "module.adult": "Adult Content",
+    "toast.sourceRemoved": "Source removed. Its nodes moved to deleted nodes.",
+    "toast.providerSaved": "Saved as a proxy-provider source",
+    "toast.importedNodes": "Imported {count} nodes",
+    "toast.templateApplied": "{name} template applied",
+    "toast.nodesCleared": "Nodes cleared. You can restore them from deleted nodes.",
+    "toast.invalidRegex": "Invalid find regex",
+    "toast.renamedNodes": "Renamed {count} nodes",
+    "toast.invalidPortStart": "Start port is invalid or out of range",
+    "toast.filledPorts": "Filled {count} listener ports",
+    "toast.clearedPorts": "Cleared {count} listener ports",
+    "toast.noFilterMatches": "No nodes match the current filter",
+    "toast.needDifferentChainNodes": "Choose different entry and exit nodes",
+    "toast.importedRules": "Imported {count} rules",
+    "toast.dnsPolicyAdded": "DNS mapping added",
+    "toast.invalidDnsPolicy": "Fill both node domain and DNS server",
+    "toast.fixErrors": "Config not generated. Fix validation errors first.",
+    "toast.generatedBlocked": "Generated output has syntax risks, so the preview was not updated.",
+    "toast.generatedWarn": "Config generated with notes to review",
+    "toast.generated": "Config generated",
+    "toast.copied": "YAML copied",
+    "error.pasteFirst": "Paste a subscription URL or node link first",
+    "error.providerSingleUrl": "proxy-providers only supports a single subscription URL. Disable it for mixed input.",
+    "error.noParsedNodes": "No valid nodes parsed",
+    "error.noNodesInSubscription": "No nodes parsed from subscription: {url}",
+    "error.unparsedChunk": "Some pasted content could not be parsed into nodes",
+    "error.fetchFailed": "Fetch failed",
+    "error.remoteHttp": "Remote returned HTTP {status}",
+    "error.backendFailed": "Backend parsing failed",
+    "validation.needNode": "At least one enabled node or one proxy-providers subscription source is required.",
+    "validation.mode": "Mode must be rule, global, or direct.",
+    "validation.testUrl": "Health check URL must be an http or https URL.",
+    "validation.testInterval": "Health check interval must be at least 30 seconds.",
+    "validation.providerUrl": "Provider source \"{name}\" must use an http/https subscription URL.",
+    "validation.duplicateNames": "Duplicate node names exist. Unique suffixes will be added when generating YAML.",
+    "validation.portRequired": "{label} is required.",
+    "validation.portInteger": "{label} must be an integer from 1 to 65535.",
+    "validation.portDuplicate": "{label} uses the same port {port} as {owner}.",
+    "validation.invalidRegex": "{label} is not a valid regex.",
+    "validation.nodeUnnamed": "A node is missing its name.",
+    "validation.nodeMissingType": "Node \"{label}\" is missing type.",
+    "validation.yamlNodeMissing": "YAML node \"{label}\" is missing name or type.",
+    "validation.nodeMissingServer": "Node \"{label}\" is missing server.",
+    "validation.nodeInvalidPort": "Node \"{label}\" has an invalid port.",
+    "validation.nodeMissingField": "Node \"{label}\" is missing {field}.",
+    "validation.nodeUnsupported": "Node \"{label}\" uses type {type}; confirm your client supports it.",
+    "validation.dnsEmpty": "DNS YAML cannot be empty.",
+    "validation.dnsRoot": "DNS YAML must contain top-level dns:.",
+    "validation.dnsTab": "DNS YAML cannot contain tabs. Use spaces for indentation.",
+    "validation.dnsUndefined": "DNS YAML contains undefined or NaN.",
+    "validation.dnsQuote": "DNS YAML contains an unclosed quote.",
+    "validation.dnsTopKeys": "The DNS editor should only contain dns config. Unexpected top-level fields: {keys}.",
+    "validation.dnsIndent": "DNS YAML line {line} has indentation that is not a multiple of 2.",
+    "validation.generatedUndefined": "Generated output contains undefined or NaN.",
+    "validation.generatedMissing": "Generated output is missing {section}",
+    "validation.generatedZeroPort": "Generated output contains port 0.",
+    "validation.generatedDuplicateTop": "Generated output contains duplicate top-level fields: {keys}.",
+    "validation.noMatch": "Generated output has no MATCH fallback rule."
+  }
+};
+
 const ICONS = {
   plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
   import: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>',
@@ -320,10 +819,14 @@ const ICONS = {
   save: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>',
   refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-15.5 6.2"/><path d="M3 12A9 9 0 0 1 18.5 5.8"/><path d="M18 2v4h4"/><path d="M6 22v-4H2"/></svg>',
   eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',
-  settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>'
+  settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>',
+  system: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/></svg>',
+  sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
+  moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 7 7 0 1 0 20.5 14.5Z"/></svg>'
 };
 
 let state = loadState();
+applyPreferences();
 
 function createDefaultState() {
   return {
@@ -338,6 +841,7 @@ function createDefaultState() {
     customRules: [],
     filterGroups: [],
     chainGroups: [],
+    dnsPolicies: [],
     base: {
       mixedPort: 7890,
       socksPort: "",
@@ -361,6 +865,8 @@ function createDefaultState() {
       warnings: []
     },
     ui: {
+      theme: "system",
+      lang: "zh",
       advancedOpen: {
         nodes: false,
         groups: false,
@@ -388,6 +894,10 @@ function createDefaultState() {
       name: "",
       entry: "",
       exit: ""
+    },
+    newDnsPolicy: {
+      domain: "",
+      server: ""
     }
   };
 }
@@ -408,6 +918,7 @@ function createSource(type) {
     content: "",
     userAgent: "clash.meta/v1.19.16",
     providerMode: false,
+    requestHeaders: "",
     status: "未导入",
     userinfo: "",
     error: "",
@@ -424,8 +935,9 @@ function loadState() {
     const stored = localStorage.getItem(STORAGE_KEY) || LEGACY_STORAGE_KEYS.map((key) => localStorage.getItem(key)).find(Boolean);
     if (!stored) return createDefaultState();
     const next = mergeState(createDefaultState(), JSON.parse(stored));
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    return next;
+    const safe = storageSafeState(next);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(safe));
+    return mergeState(createDefaultState(), safe);
   } catch {
     return createDefaultState();
   }
@@ -439,6 +951,7 @@ function mergeState(base, saved) {
   merged.bulk = { ...base.bulk, ...(saved.bulk || {}) };
   merged.newFilter = { ...base.newFilter, ...(saved.newFilter || {}) };
   merged.newChain = { ...base.newChain, ...(saved.newChain || {}) };
+  merged.newDnsPolicy = { ...base.newDnsPolicy, ...(saved.newDnsPolicy || {}) };
   const savedModules = saved.modules || {};
   const hasCurrentModuleShape = ["select", "auto", "ad", "global", "final"].every((key) => Object.prototype.hasOwnProperty.call(savedModules, key));
   merged.modules = !isOldState && hasCurrentModuleShape ? { ...base.modules, ...savedModules } : modulesForTemplate(saved.template || base.template);
@@ -449,12 +962,15 @@ function mergeState(base, saved) {
     ...(saved.ui || {}),
     advancedOpen: { ...base.ui.advancedOpen, ...((saved.ui || {}).advancedOpen || {}) }
   };
-  merged.sources = Array.isArray(saved.sources) && saved.sources.length ? saved.sources : base.sources;
+  if (!["system", "light", "dark"].includes(merged.ui.theme)) merged.ui.theme = base.ui.theme;
+  if (!["zh", "en"].includes(merged.ui.lang)) merged.ui.lang = base.ui.lang;
+  merged.sources = (Array.isArray(saved.sources) && saved.sources.length ? saved.sources : base.sources).map(normalizeSource);
   merged.nodes = Array.isArray(saved.nodes) ? saved.nodes : [];
   merged.deletedNodes = Array.isArray(saved.deletedNodes) ? saved.deletedNodes : [];
   merged.customRules = Array.isArray(saved.customRules) ? saved.customRules : [];
   merged.filterGroups = Array.isArray(saved.filterGroups) ? saved.filterGroups : [];
   merged.chainGroups = Array.isArray(saved.chainGroups) ? saved.chainGroups : [];
+  merged.dnsPolicies = Array.isArray(saved.dnsPolicies) ? saved.dnsPolicies : [];
   if (typeof merged.preview === "string") {
     merged.preview = merged.preview.replace("# Generated by SubBoost Local", "# Generated by subpanel");
   }
@@ -462,7 +978,63 @@ function mergeState(base, saved) {
 }
 
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  writeStoredState(state);
+}
+
+function writeStoredState(nextState) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(storageSafeState(nextState)));
+}
+
+function storageSafeState(nextState) {
+  return {
+    ...nextState,
+    sources: sanitizeSources(nextState.sources),
+    nodes: [],
+    deletedNodes: [],
+    dnsPolicies: [],
+    newDnsPolicy: {
+      domain: "",
+      server: ""
+    },
+    preview: "",
+    lastGeneratedAt: "",
+    activeProfileId: "",
+    ruleInput: "",
+    validation: {
+      errors: [],
+      warnings: []
+    }
+  };
+}
+
+function sanitizeSources(sources) {
+  const list = Array.isArray(sources) && sources.length ? sources : [createSource("url")];
+  return list.map((source) => ({
+    id: source.id || uid("src"),
+    type: source.type || "url",
+    name: source.name || "输入",
+    tag: source.tag || "",
+    nameTemplate: source.nameTemplate || "{tag}{name}",
+    content: "",
+    userAgent: "clash.meta/v1.19.16",
+    providerMode: !!source.providerMode,
+    requestHeaders: "",
+    status: "",
+    userinfo: "",
+    error: "",
+    nodeIds: []
+  }));
+}
+
+function normalizeSource(source) {
+  return {
+    ...createSource(source?.type || "url"),
+    ...source,
+    content: source?.content || "",
+    userAgent: source?.userAgent || "clash.meta/v1.19.16",
+    requestHeaders: source?.requestHeaders || "",
+    nodeIds: Array.isArray(source?.nodeIds) ? source.nodeIds : []
+  };
 }
 
 function escapeHtml(value) {
@@ -481,10 +1053,159 @@ function icon(name) {
   return ICONS[name] || "";
 }
 
+function getLang() {
+  return state?.ui?.lang === "en" ? "en" : "zh";
+}
+
+function t(key, values = {}) {
+  const catalog = I18N[getLang()] || I18N.zh;
+  const template = catalog[key] || I18N.zh[key] || key;
+  return template.replace(/\{([A-Za-z0-9_-]+)\}/g, (match, name) => (
+    Object.prototype.hasOwnProperty.call(values, name) ? values[name] : match
+  ));
+}
+
+function applyPreferences() {
+  const preference = state?.ui?.theme || "system";
+  const resolvedTheme = preference === "system"
+    ? (window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light")
+    : preference;
+  document.documentElement.dataset.theme = resolvedTheme;
+  document.documentElement.dataset.themePreference = preference;
+  document.documentElement.lang = getLang() === "en" ? "en" : "zh-CN";
+}
+
+function setThemePreference(theme) {
+  if (!["system", "light", "dark"].includes(theme)) return;
+  state.ui.theme = theme;
+  saveState();
+  applyPreferences();
+  render();
+}
+
+function setLanguage(lang) {
+  if (!["zh", "en"].includes(lang)) return;
+  state.ui.lang = lang;
+  saveState();
+  applyPreferences();
+  render();
+}
+
+function templateName(id) {
+  return t(`template.${id}.name`);
+}
+
+function templateDescription(id) {
+  return t(`template.${id}.description`);
+}
+
+function policyLabel(value) {
+  return t(`policy.${value}`);
+}
+
+function moduleDisplayName(moduleOrName) {
+  const module = typeof moduleOrName === "string" ? moduleByName(moduleOrName) : moduleOrName;
+  if (!module) return String(moduleOrName || "");
+  return t(`module.${module.id}`);
+}
+
+function categoryDisplayName(category) {
+  const keys = {
+    "核心": "core",
+    "服务": "service",
+    "社交": "social",
+    "媒体": "media",
+    "游戏": "game",
+    "技术": "tech",
+    "金融": "finance",
+    "其他": "other"
+  };
+  return t(`module.category.${keys[category] || "other"}`);
+}
+
+function formatSourceStatus(source, count) {
+  if (source.error) return source.error;
+  const status = source.status || "";
+  const imported = status.match(/^已导入\s+(\d+)\s+节点(?:，(\d+)\s+个提醒)?$/) || status.match(/^Imported\s+(\d+)\s+nodes(?:,\s+(\d+)\s+warnings)?$/i);
+  if (imported) {
+    return importedStatusText(Number(imported[1]), Number(imported[2] || 0));
+  }
+  const map = {
+    "未导入": "status.notImported",
+    "Not imported": "status.notImported",
+    "解析中...": "status.parsing",
+    "Parsing...": "status.parsing",
+    "provider 模式已保存": "status.providerSaved",
+    "Provider mode saved": "status.providerSaved",
+    "provider 模式": "status.providerMode",
+    "Provider mode": "status.providerMode",
+    "导入失败": "status.importFailed",
+    "Import failed": "status.importFailed"
+  };
+  if (map[status]) return t(map[status]);
+  if (count) return t("status.importedNodes", { count });
+  return status || t("status.notImported");
+}
+
+function localeCode() {
+  return getLang() === "en" ? "en-US" : "zh-CN";
+}
+
+function localText(zh, en) {
+  return getLang() === "en" ? en : zh;
+}
+
+function nodeCount(count) {
+  return getLang() === "en" ? `${count} node${count === 1 ? "" : "s"}` : `${count} 个节点`;
+}
+
+function providerCount(count) {
+  return getLang() === "en" ? `${count} provider${count === 1 ? "" : "s"}` : `${count} provider`;
+}
+
+function ruleCount(count) {
+  return getLang() === "en" ? `${count} rule${count === 1 ? "" : "s"}` : `${count} 条`;
+}
+
+function importedStatusText(count, warnings = 0) {
+  if (getLang() === "en") {
+    const nodeText = `${count} node${Number(count) === 1 ? "" : "s"}`;
+    const warningText = warnings ? `, ${warnings} warning${Number(warnings) === 1 ? "" : "s"}` : "";
+    return `Imported ${nodeText}${warningText}`;
+  }
+  return warnings ? `已导入 ${count} 节点，${warnings} 个提醒` : `已导入 ${count} 节点`;
+}
+
+function renderTopbarActions() {
+  const theme = state.ui?.theme || "system";
+  const lang = getLang();
+  const themeOptions = [
+    { value: "system", icon: "system" },
+    { value: "light", icon: "sun" },
+    { value: "dark", icon: "moon" }
+  ];
+  return `
+    <div class="topbar-actions">
+      <div class="header-segment icon-segment" aria-label="${attr(t("theme.label"))}">
+        ${themeOptions.map((option) => `
+          <button data-action="set-theme" data-theme="${option.value}" class="${theme === option.value ? "active" : ""}" title="${attr(t(`theme.${option.value}`))}" aria-label="${attr(t(`theme.${option.value}`))}">
+            ${icon(option.icon)}
+          </button>
+        `).join("")}
+      </div>
+      <div class="header-segment language-segment" aria-label="${attr(t("language.label"))}">
+        <button data-action="set-language" data-lang="zh" class="${lang === "zh" ? "active" : ""}" title="${attr(t("language.zh"))}">中</button>
+        <button data-action="set-language" data-lang="en" class="${lang === "en" ? "active" : ""}" title="${attr(t("language.en"))}">EN</button>
+      </div>
+    </div>
+  `;
+}
+
 function render() {
   const activeNodes = getActiveNodes();
   const providers = getProviderSources();
   const app = document.querySelector("#app");
+  const currentTemplateName = templateName(state.template || "standard");
 
   app.innerHTML = `
     <div class="app-shell">
@@ -493,9 +1214,10 @@ function render() {
           <div class="brand-mark">SP</div>
           <div>
             <h1>subpanel</h1>
-            <p>${activeNodes.length ? `${activeNodes.length} 个节点` : "Clash / Mihomo 配置生成器"} · ${escapeHtml(TEMPLATES[state.template]?.name || "日常")}</p>
+            <p>${activeNodes.length ? nodeCount(activeNodes.length) : t("app.subtitle")} · ${escapeHtml(currentTemplateName)}</p>
           </div>
         </div>
+        ${renderTopbarActions()}
       </header>
 
       <main class="workspace">
@@ -525,22 +1247,22 @@ function renderProjectPanel(activeNodes, providers) {
       <div class="panel-body stack">
         <div class="template-picker">
           <div class="row between wrap">
-            <strong>分流模板</strong>
-            <span class="hint">${escapeHtml(TEMPLATES[state.template]?.description || "")}</span>
+            <strong>${t("template.label")}</strong>
+            <span class="hint">${escapeHtml(templateDescription(state.template || "standard"))}</span>
           </div>
           <div class="segmented">
             ${Object.entries(TEMPLATES).map(([id, template]) => `
-              <button data-action="apply-template" data-template="${id}" class="${state.template === id ? "active" : ""}" title="${attr(template.description)}">${escapeHtml(template.name)}</button>
+              <button data-action="apply-template" data-template="${id}" class="${state.template === id ? "active" : ""}" title="${attr(templateDescription(id))}">${escapeHtml(templateName(id))}</button>
             `).join("")}
           </div>
         </div>
         ${renderRoutingPolicyPanel()}
         <div class="generate-strip">
           <div>
-            <strong>${activeNodes.length || providers.length ? "可以生成配置" : "等待导入节点"}</strong>
-            <span>${activeNodes.length} 节点 · ${providers.length} provider</span>
+            <strong>${activeNodes.length || providers.length ? t("ready") : t("waitingImport")}</strong>
+            <span>${nodeCount(activeNodes.length)} · ${providerCount(providers.length)}</span>
           </div>
-          <button class="btn primary hero-action" data-action="generate">${icon("spark")}生成配置</button>
+          <button class="btn primary hero-action" data-action="generate">${icon("spark")}${t("generate")}</button>
         </div>
         ${renderValidationSummary()}
       </div>
@@ -554,7 +1276,7 @@ function renderRoutingPolicyPanel() {
   return `
     <details class="routing-details">
       <summary>
-        <span>分流去向</span>
+        <span>${t("routing.title")}</span>
         <small>${summarizePolicies(groups)}</small>
       </summary>
       <div class="policy-list">
@@ -568,7 +1290,7 @@ function renderPolicyRow(group) {
   const value = getGroupPolicy(group);
   return `
     <div class="policy-row">
-      <span>${escapeHtml(group)}</span>
+      <span>${escapeHtml(moduleDisplayName(group))}</span>
       <div class="policy-toggle">
         ${policyOptionsForGroup(group).map((option) => `
           <label class="${value === option.value ? "active" : ""}">
@@ -597,7 +1319,7 @@ function renderSourcesPanel() {
         <div class="panel-title">
           ${icon("import")}
           <div>
-            <h2>输入</h2>
+            <h2>${t("source.title")}</h2>
             <span>${sourcePanelStatus()}</span>
           </div>
         </div>
@@ -617,41 +1339,50 @@ function renderSource(source) {
     <div class="source-item" data-source-id="${attr(source.id)}">
       <div class="source-top">
         <div class="row wrap">
-          <span class="badge ${statusClass}">${escapeHtml(source.error || source.status || "未导入")}</span>
-          <span class="badge">${count} 节点</span>
+          <span class="badge ${statusClass}">${escapeHtml(formatSourceStatus(source, count))}</span>
+          <span class="badge">${nodeCount(count)}</span>
           ${source.userinfo ? `<span class="badge">${escapeHtml(source.userinfo)}</span>` : ""}
         </div>
         <div class="row source-actions">
-          <button class="btn primary" data-action="import-source" data-id="${attr(source.id)}" title="${source.providerMode ? "保存 provider 源" : "解析此来源"}">${icon("refresh")}解析</button>
-          ${canRemove ? `<button class="btn icon danger" data-action="remove-source" data-id="${attr(source.id)}" title="删除导入源">${icon("trash")}</button>` : ""}
+          <button class="btn primary" data-action="import-source" data-id="${attr(source.id)}" title="${attr(source.providerMode ? t("source.providerTitle") : t("source.parseTitle"))}">${icon("refresh")}${t("source.parse")}</button>
+          ${canRemove ? `<button class="btn icon danger" data-action="remove-source" data-id="${attr(source.id)}" title="${attr(t("source.removeTitle"))}">${icon("trash")}</button>` : ""}
         </div>
       </div>
       <textarea class="mono smart-input" data-source="${attr(source.id)}" data-source-field="content" placeholder="${attr(sourcePlaceholder())}">${escapeHtml(source.content)}</textarea>
       <div class="row between wrap">
         <details class="inline-details">
-          <summary>高级导入选项</summary>
+          <summary>${t("source.advanced")}</summary>
           <div class="source-meta">
-            <label>名称
-              <input data-source="${attr(source.id)}" data-source-field="name" value="${attr(source.name)}" placeholder="导入源名称">
+            <label>${t("source.name")}
+              <input data-source="${attr(source.id)}" data-source-field="name" value="${attr(source.name)}" placeholder="${attr(t("source.namePlaceholder"))}">
             </label>
-            <label>标签
-              <input data-source="${attr(source.id)}" data-source-field="tag" value="${attr(source.tag)}" placeholder="例：机场 A">
+            <label>${t("source.tag")}
+              <input data-source="${attr(source.id)}" data-source-field="tag" value="${attr(source.tag)}" placeholder="${attr(t("source.tagPlaceholder"))}">
             </label>
           </div>
           <div class="source-meta">
-            <label>命名模板
+            <label>${t("source.nameTemplate")}
               <input data-source="${attr(source.id)}" data-source-field="nameTemplate" value="${attr(source.nameTemplate)}" placeholder="{tag}{name}">
             </label>
             <label>User-Agent
               <input data-source="${attr(source.id)}" data-source-field="userAgent" value="${attr(source.userAgent)}">
             </label>
           </div>
+          <div class="source-item nested-source">
+            <div class="row between wrap">
+              <strong>${t("source.restrictedHeaders")}</strong>
+              <span class="hint">${t("source.requestHeadersHint")}</span>
+            </div>
+            <label>${t("source.requestHeaders")}
+              <textarea class="mono header-textarea" data-source="${attr(source.id)}" data-source-field="requestHeaders" placeholder="${attr(t("source.requestHeadersPlaceholder"))}">${escapeHtml(source.requestHeaders || "")}</textarea>
+            </label>
+          </div>
           <label class="checkline">
             <input type="checkbox" data-source="${attr(source.id)}" data-source-field="providerMode" ${source.providerMode ? "checked" : ""}>
-            使用 proxy-providers
+            ${t("source.providerMode")}
           </label>
           ${source.userinfo ? `<span class="hint">${escapeHtml(source.userinfo)}</span>` : ""}
-          <span class="hint">命名占位符：{name}、{tag}、{type}、{index}</span>
+          <span class="hint">${escapeHtml(t("source.nameHint"))}</span>
         </details>
       </div>
     </div>
@@ -659,13 +1390,13 @@ function renderSource(source) {
 }
 
 function sourcePlaceholder() {
-  return "粘贴订阅链接或节点链接，一行一个；也可粘贴完整 Clash / Mihomo YAML";
+  return t("source.placeholder");
 }
 
 function sourcePanelStatus() {
   const count = getActiveNodes().length;
-  if (count) return `${count} 个节点`;
-  return "粘贴后解析";
+  if (count) return nodeCount(count);
+  return t("source.parseAfterPaste");
 }
 
 function renderNodesPanel() {
@@ -674,32 +1405,32 @@ function renderNodesPanel() {
   return renderAdvancedCard({
     id: "nodes",
     icon: icon("spark"),
-    title: "节点管理",
-    subtitle: "改名、停用、监听端口和批量处理",
+    title: t("advanced.nodes.title"),
+    subtitle: t("advanced.nodes.subtitle"),
     badge: `${activeNodes.length}/${state.nodes.length}`,
     body: `
       <div class="row between wrap advanced-toolbar">
-        <span class="hint">日常只需要导入和生成；需要精修节点名或端口时再打开这里。</span>
-        <button class="btn" data-action="clear-nodes">${icon("trash")}清空节点</button>
+        <span class="hint">${t("advanced.nodes.hint")}</span>
+        <button class="btn" data-action="clear-nodes">${icon("trash")}${t("advanced.nodes.clear")}</button>
       </div>
       <details class="subdetails">
-        <summary>批量重命名与端口</summary>
+        <summary>${t("bulk.title")}</summary>
         ${renderBulkTools()}
       </details>
-      ${state.nodes.length ? renderNodeTable() : `<div class="empty">先在左侧导入订阅、YAML 或节点链接。</div>`}
+      ${state.nodes.length ? renderNodeTable() : `<div class="empty">${t("advanced.nodes.empty")}</div>`}
       ${deleted.length ? `
         <div class="item-list">
           <div class="row between">
-            <strong>已删除节点</strong>
-            <button class="btn" data-action="restore-all">全部恢复</button>
+            <strong>${t("advanced.nodes.deleted")}</strong>
+            <button class="btn" data-action="restore-all">${t("advanced.nodes.restoreAll")}</button>
           </div>
           ${deleted.slice(0, 12).map((node) => `
             <div class="deleted-item row between">
               <span class="muted">${escapeHtml(node.name)}</span>
-              <button class="btn" data-action="restore-node" data-id="${attr(node.id)}">恢复</button>
+              <button class="btn" data-action="restore-node" data-id="${attr(node.id)}">${t("advanced.nodes.restore")}</button>
             </div>
           `).join("")}
-          ${deleted.length > 12 ? `<span class="hint">还有 ${deleted.length - 12} 个已删除节点。</span>` : ""}
+          ${deleted.length > 12 ? `<span class="hint">${t("advanced.nodes.moreDeleted", { count: deleted.length - 12 })}</span>` : ""}
         </div>
       ` : ""}
     `
@@ -710,30 +1441,30 @@ function renderBulkTools() {
   return `
     <div class="source-item">
       <div class="grid-2">
-        <label>筛选包含正则
-          <input data-bulk="include" value="${attr(state.bulk.include)}" placeholder="例：HK|Japan|专线">
+        <label>${t("bulk.include")}
+          <input data-bulk="include" value="${attr(state.bulk.include)}" placeholder="${attr(localText("例：HK|Japan|专线", "Example: HK|Japan|premium"))}">
         </label>
-        <label>筛选排除正则
-          <input data-bulk="exclude" value="${attr(state.bulk.exclude)}" placeholder="例：过期|测试">
+        <label>${t("bulk.exclude")}
+          <input data-bulk="exclude" value="${attr(state.bulk.exclude)}" placeholder="${attr(localText("例：过期|测试", "Example: expired|test"))}">
         </label>
       </div>
       <div class="grid-2">
-        <label>查找正则
-          <input data-bulk="find" value="${attr(state.bulk.find)}" placeholder="例：\\s+\\|\\s+">
+        <label>${t("bulk.find")}
+          <input data-bulk="find" value="${attr(state.bulk.find)}" placeholder="${attr(localText("例：\\s+\\|\\s+", "Example: \\s+\\|\\s+"))}">
         </label>
-        <label>替换为
-          <input data-bulk="replace" value="${attr(state.bulk.replace)}" placeholder="例： - ">
+        <label>${t("bulk.replace")}
+          <input data-bulk="replace" value="${attr(state.bulk.replace)}" placeholder="${attr(localText("例： - ", "Example: - "))}">
         </label>
       </div>
       <div class="row wrap">
-        ${renderCheck("bulk.trim", state.bulk.trim, "去除首尾空格")}
-        ${renderCheck("bulk.normalizeSpaces", state.bulk.normalizeSpaces, "空白归一化")}
-        <button class="btn primary" data-action="bulk-rename">${icon("spark")}批量重命名</button>
-        <label style="width: 150px;">起始端口
+        ${renderCheck("bulk.trim", state.bulk.trim, t("bulk.trim"))}
+        ${renderCheck("bulk.normalizeSpaces", state.bulk.normalizeSpaces, t("bulk.normalizeSpaces"))}
+        <button class="btn primary" data-action="bulk-rename">${icon("spark")}${t("bulk.rename")}</button>
+        <label style="width: 150px;">${t("bulk.portStart")}
           <input type="number" data-bulk="portStart" value="${attr(state.bulk.portStart)}">
         </label>
-        <button class="btn" data-action="fill-ports">填充端口</button>
-        <button class="btn" data-action="clear-ports">删除端口</button>
+        <button class="btn" data-action="fill-ports">${t("bulk.fillPorts")}</button>
+        <button class="btn" data-action="clear-ports">${t("bulk.clearPorts")}</button>
       </div>
     </div>
   `;
@@ -745,14 +1476,14 @@ function renderNodeTable() {
       <table class="node-table">
         <thead>
           <tr>
-            <th>启用</th>
-            <th>名称</th>
-            <th>类型</th>
-            <th>来源</th>
-            <th>地址</th>
-            <th>监听端口</th>
-            <th>顺序</th>
-            <th>操作</th>
+            <th>${t("table.enabled")}</th>
+            <th>${t("table.name")}</th>
+            <th>${t("table.type")}</th>
+            <th>${t("table.source")}</th>
+            <th>${t("table.address")}</th>
+            <th>${t("table.listenerPort")}</th>
+            <th>${t("table.order")}</th>
+            <th>${t("table.action")}</th>
           </tr>
         </thead>
         <tbody>
@@ -761,11 +1492,11 @@ function renderNodeTable() {
               <td><input type="checkbox" data-node="${attr(node.id)}" data-node-field="enabled" ${node.enabled !== false ? "checked" : ""}></td>
               <td><input class="small node-name-input" data-node="${attr(node.id)}" data-node-field="name" value="${attr(node.name)}"></td>
               <td><span class="type-pill">${escapeHtml(node.type || "raw")}</span></td>
-              <td class="muted">${escapeHtml(node.sourceName || "手动")}</td>
+              <td class="muted">${escapeHtml(node.sourceName || t("common.manual"))}</td>
               <td class="muted">${escapeHtml(node.server || "-")}:${escapeHtml(node.port || "-")}</td>
-              <td><input class="small" type="number" min="1" max="65535" data-node="${attr(node.id)}" data-node-field="listenerPort" value="${attr(node.listenerPort || "")}" placeholder="可空"></td>
+              <td><input class="small" type="number" min="1" max="65535" data-node="${attr(node.id)}" data-node-field="listenerPort" value="${attr(node.listenerPort || "")}" placeholder="${attr(t("common.empty"))}"></td>
               <td><input class="small" type="number" min="1" max="${state.nodes.length}" data-action="move-node" data-id="${attr(node.id)}" value="${index + 1}"></td>
-              <td><button class="btn icon danger" data-action="delete-node" data-id="${attr(node.id)}" title="删除节点">${icon("trash")}</button></td>
+              <td><button class="btn icon danger" data-action="delete-node" data-id="${attr(node.id)}" title="${attr(t("common.deleteNode"))}">${icon("trash")}</button></td>
             </tr>
           `).join("")}
         </tbody>
@@ -779,77 +1510,77 @@ function renderGroupsPanel() {
   return renderAdvancedCard({
     id: "groups",
     icon: icon("settings"),
-    title: "代理组",
-    subtitle: "筛选组、自动测速组与链式 relay",
-    badge: `${state.filterGroups.length + state.chainGroups.length} 自定义`,
+    title: t("groups.title"),
+    subtitle: t("groups.subtitle"),
+    badge: t("groups.customBadge", { count: state.filterGroups.length + state.chainGroups.length }),
     body: `
         <div class="source-item">
           <div class="row between wrap">
-            <strong>筛选代理组</strong>
-            <span class="hint">按来源、地区关键词或正则创建独立分组。</span>
+            <strong>${t("groups.filterTitle")}</strong>
+            <span class="hint">${t("groups.filterHint")}</span>
           </div>
           <div class="grid-2">
-            <label>名称
-              <input data-new-filter="name" value="${attr(state.newFilter.name)}" placeholder="例：香港自动">
+            <label>${t("table.name")}
+              <input data-new-filter="name" value="${attr(state.newFilter.name)}" placeholder="${attr(localText("例：香港自动", "Example: Hong Kong Auto"))}">
             </label>
-            <label>类型
+            <label>${t("groups.type")}
               <select data-new-filter="type">
                 ${["select", "url-test", "fallback", "load-balance"].map((type) => `<option value="${type}" ${state.newFilter.type === type ? "selected" : ""}>${type}</option>`).join("")}
               </select>
             </label>
           </div>
           <div class="grid-3">
-            <label>来源
+            <label>${t("groups.source")}
               <select data-new-filter="source">
-                <option value="all">全部来源</option>
+                <option value="all">${t("groups.allSources")}</option>
                 ${state.sources.map((source) => `<option value="${attr(source.id)}" ${state.newFilter.source === source.id ? "selected" : ""}>${escapeHtml(source.name)}</option>`).join("")}
               </select>
             </label>
-            <label>包含正则
-              <input data-new-filter="include" value="${attr(state.newFilter.include)}" placeholder="HK|Hong Kong|香港">
+            <label>${t("bulk.include")}
+              <input data-new-filter="include" value="${attr(state.newFilter.include)}" placeholder="${attr(localText("HK|Hong Kong|香港", "HK|Hong Kong|Premium"))}">
             </label>
-            <label>排除正则
-              <input data-new-filter="exclude" value="${attr(state.newFilter.exclude)}" placeholder="倍率|过期">
+            <label>${t("bulk.exclude")}
+              <input data-new-filter="exclude" value="${attr(state.newFilter.exclude)}" placeholder="${attr(localText("倍率|过期", "high rate|expired"))}">
             </label>
           </div>
           <div class="row between wrap">
-            <span class="hint">当前命中 ${matchFilterDraft(nodes).length} 个节点</span>
-            <button class="btn primary" data-action="add-filter">${icon("plus")}添加筛选组</button>
+            <span class="hint">${localText(`当前命中 ${matchFilterDraft(nodes).length} 个节点`, `${nodeCount(matchFilterDraft(nodes).length)} matched`)}</span>
+            <button class="btn primary" data-action="add-filter">${icon("plus")}${t("groups.addFilter")}</button>
           </div>
         </div>
         <div class="item-list">
-          ${state.filterGroups.length ? state.filterGroups.map((group) => renderFilterGroup(group, nodes)).join("") : `<div class="empty">暂无筛选组。</div>`}
+          ${state.filterGroups.length ? state.filterGroups.map((group) => renderFilterGroup(group, nodes)).join("") : `<div class="empty">${t("groups.noFilter")}</div>`}
         </div>
         <div class="split-line"></div>
         <div class="source-item">
           <div class="row between wrap">
-            <strong>链式代理组</strong>
-            <span class="hint">生成 Mihomo relay 组：入口节点到落地节点。</span>
+            <strong>${t("groups.chainTitle")}</strong>
+            <span class="hint">${t("groups.chainHint")}</span>
           </div>
           <div class="grid-3">
-            <label>名称
-              <input data-new-chain="name" value="${attr(state.newChain.name)}" placeholder="例：HK 到 US">
+            <label>${t("table.name")}
+              <input data-new-chain="name" value="${attr(state.newChain.name)}" placeholder="${attr(localText("例：HK 到 US", "Example: HK to US"))}">
             </label>
-            <label>入口节点
+            <label>${t("groups.entry")}
               <select data-new-chain="entry">
-                <option value="">选择节点</option>
+                <option value="">${t("groups.selectNode")}</option>
                 ${nodes.map((node) => `<option value="${attr(node.id)}" ${state.newChain.entry === node.id ? "selected" : ""}>${escapeHtml(node.name)}</option>`).join("")}
               </select>
             </label>
-            <label>落地节点
+            <label>${t("groups.exit")}
               <select data-new-chain="exit">
-                <option value="">选择节点</option>
+                <option value="">${t("groups.selectNode")}</option>
                 ${nodes.map((node) => `<option value="${attr(node.id)}" ${state.newChain.exit === node.id ? "selected" : ""}>${escapeHtml(node.name)}</option>`).join("")}
               </select>
             </label>
           </div>
           <div class="row between wrap">
-            <span class="hint">relay 组通常需要客户端内核支持。</span>
-            <button class="btn primary" data-action="add-chain">${icon("plus")}添加链式组</button>
+            <span class="hint">${t("groups.relayHint")}</span>
+            <button class="btn primary" data-action="add-chain">${icon("plus")}${t("groups.addChain")}</button>
           </div>
         </div>
         <div class="item-list">
-          ${state.chainGroups.length ? state.chainGroups.map(renderChainGroup).join("") : `<div class="empty">暂无链式代理组。</div>`}
+          ${state.chainGroups.length ? state.chainGroups.map(renderChainGroup).join("") : `<div class="empty">${t("groups.noChain")}</div>`}
         </div>
     `
   });
@@ -861,17 +1592,17 @@ function renderFilterGroup(group, nodes) {
     <div class="filter-item">
       <div class="row between wrap">
         <div class="row wrap">
-          <label class="switch" title="启用">
+          <label class="switch" title="${attr(t("common.enabled"))}">
             <input type="checkbox" data-filter="${attr(group.id)}" data-filter-field="enabled" ${group.enabled !== false ? "checked" : ""}>
             <span></span>
           </label>
           <strong>${escapeHtml(group.name)}</strong>
           <span class="badge">${escapeHtml(group.type)}</span>
-          <span class="badge good">${count} 节点</span>
+          <span class="badge good">${nodeCount(count)}</span>
         </div>
         <button class="btn icon danger" data-action="remove-filter" data-id="${attr(group.id)}">${icon("trash")}</button>
       </div>
-      <div class="hint">包含：${escapeHtml(group.include || "全部")} · 排除：${escapeHtml(group.exclude || "无")}</div>
+      <div class="hint">${t("groups.include")}：${escapeHtml(group.include || t("common.all"))} · ${t("groups.exclude")}：${escapeHtml(group.exclude || t("common.none"))}</div>
     </div>
   `;
 }
@@ -883,7 +1614,7 @@ function renderChainGroup(group) {
     <div class="chain-item">
       <div class="row between wrap">
         <div class="row wrap">
-          <label class="switch" title="启用">
+          <label class="switch" title="${attr(t("common.enabled"))}">
             <input type="checkbox" data-chain="${attr(group.id)}" data-chain-field="enabled" ${group.enabled !== false ? "checked" : ""}>
             <span></span>
           </label>
@@ -892,7 +1623,7 @@ function renderChainGroup(group) {
         </div>
         <button class="btn icon danger" data-action="remove-chain" data-id="${attr(group.id)}">${icon("trash")}</button>
       </div>
-      <div class="hint">入口：${escapeHtml(entry?.name || "未选择")} · 落地：${escapeHtml(exit?.name || "未选择")}</div>
+      <div class="hint">${t("groups.entryShort")}：${escapeHtml(entry?.name || t("groups.unselected"))} · ${t("groups.exitShort")}：${escapeHtml(exit?.name || t("groups.unselected"))}</div>
     </div>
   `;
 }
@@ -903,8 +1634,8 @@ function renderRulesPanel() {
   return renderAdvancedCard({
     id: "rules",
     icon: icon("eye"),
-    title: "分流规则",
-    subtitle: "内置模块默认够用，自定义规则按需添加",
+    title: t("rules.title"),
+    subtitle: t("rules.subtitle"),
     badge: `${enabledModules}/${MODULES.length}`,
     body: `
         <div class="modules-grid">
@@ -912,23 +1643,23 @@ function renderRulesPanel() {
         </div>
         <div class="source-item">
           <div class="row between wrap">
-            <strong>批量导入规则</strong>
-            <span class="hint">缺少目标时使用右侧选择的目标。</span>
+            <strong>${t("rules.bulkTitle")}</strong>
+            <span class="hint">${t("rules.bulkHint")}</span>
           </div>
           <div class="grid-2">
-            <label>目标分组
+            <label>${t("rules.target")}
               <select data-field="ruleTarget">
-                ${targets.map((target) => `<option value="${attr(target)}" ${state.ruleTarget === target ? "selected" : ""}>${escapeHtml(target)}</option>`).join("")}
+                ${targets.map((target) => `<option value="${attr(target)}" ${state.ruleTarget === target ? "selected" : ""}>${escapeHtml(moduleDisplayName(target))}</option>`).join("")}
               </select>
             </label>
-            <label>快速示例
-              <input readonly value="DOMAIN-SUFFIX,example.com 或 github.com">
+            <label>${t("rules.example")}
+              <input readonly value="${attr(localText("DOMAIN-SUFFIX,example.com 或 github.com", "DOMAIN-SUFFIX,example.com or github.com"))}">
             </label>
           </div>
-          <textarea class="mono" data-field="ruleInput" placeholder="DOMAIN-SUFFIX,example.com,节点选择&#10;IP-CIDR,1.1.1.0/24,节点选择,no-resolve&#10;github.com">${escapeHtml(state.ruleInput)}</textarea>
+          <textarea class="mono" data-field="ruleInput" placeholder="${attr(localText("DOMAIN-SUFFIX,example.com,节点选择\nIP-CIDR,1.1.1.0/24,节点选择,no-resolve\ngithub.com", "DOMAIN-SUFFIX,example.com,节点选择\nIP-CIDR,1.1.1.0/24,节点选择,no-resolve\ngithub.com"))}">${escapeHtml(state.ruleInput)}</textarea>
           <div class="row between wrap">
-            <span class="hint">当前已有 ${state.customRules.length} 条自定义规则。</span>
-            <button class="btn primary" data-action="import-rules">${icon("plus")}导入规则</button>
+            <span class="hint">${t("rules.customCount", { count: state.customRules.length })}</span>
+            <button class="btn primary" data-action="import-rules">${icon("plus")}${t("rules.import")}</button>
           </div>
         </div>
         ${state.customRules.length ? `
@@ -951,10 +1682,10 @@ function renderModule(module) {
     <div class="module-item">
       <div class="module-title">
         <div>
-          <strong>${escapeHtml(module.name)}</strong>
-          <div class="hint">${escapeHtml(module.category)} · ${module.rules.length} 条</div>
+          <strong>${escapeHtml(moduleDisplayName(module))}</strong>
+          <div class="hint">${escapeHtml(categoryDisplayName(module.category))} · ${ruleCount(module.rules.length)}</div>
         </div>
-        <label class="switch" title="启用 ${attr(module.name)}">
+        <label class="switch" title="${attr(`${t("common.enabled")} ${moduleDisplayName(module)}`)}">
           <input type="checkbox" data-module="${attr(module.id)}" ${enabled ? "checked" : ""}>
           <span></span>
         </label>
@@ -965,20 +1696,20 @@ function renderModule(module) {
 }
 
 function renderPreviewPanel(activeNodes, providers) {
-  const yaml = state.preview || "# 请先添加订阅或节点并点击生成配置\n";
+  const yaml = state.preview || t("preview.placeholder");
   return `
     <section class="panel preview-panel" id="preview">
       <div class="panel-header">
         <div class="panel-title">
           ${icon("eye")}
           <div>
-            <h2>配置预览</h2>
-            <span>${state.lastGeneratedAt ? `生成于 ${escapeHtml(state.lastGeneratedAt)}` : "等待生成"}</span>
+            <h2>${t("preview.title")}</h2>
+            <span>${state.lastGeneratedAt ? t("preview.generatedAt", { time: escapeHtml(state.lastGeneratedAt) }) : t("preview.waiting")}</span>
           </div>
         </div>
         <div class="preview-tools">
-          <button class="btn" data-action="copy-yaml">${icon("copy")}复制</button>
-          <button class="btn" data-action="download-yaml">${icon("download")}下载</button>
+          <button class="btn" data-action="copy-yaml">${icon("copy")}${t("preview.copy")}</button>
+          <button class="btn" data-action="download-yaml">${icon("download")}${t("preview.download")}</button>
         </div>
       </div>
       ${renderValidationSummary()}
@@ -993,28 +1724,28 @@ function renderVisual(activeNodes, providers) {
   return `
     <div class="visual">
       <div class="visual-row">
-        <div class="visual-label">节点</div>
+        <div class="visual-label">${t("advanced.nodes.title")}</div>
         <div class="chip-cloud">
-          ${activeNodes.slice(0, 36).map((node) => `<span class="chip">${escapeHtml(node.name)}</span>`).join("") || `<span class="hint">暂无节点</span>`}
-          ${activeNodes.length > 36 ? `<span class="badge">还有 ${activeNodes.length - 36} 个</span>` : ""}
+          ${activeNodes.slice(0, 36).map((node) => `<span class="chip">${escapeHtml(node.name)}</span>`).join("") || `<span class="hint">${t("advanced.nodes.empty")}</span>`}
+          ${activeNodes.length > 36 ? `<span class="badge">${t("advanced.nodes.moreDeleted", { count: activeNodes.length - 36 })}</span>` : ""}
         </div>
       </div>
       <div class="visual-row">
         <div class="visual-label">Provider</div>
         <div class="chip-cloud">
-          ${providers.map((source) => `<span class="chip">${escapeHtml(providerName(source))}</span>`).join("") || `<span class="hint">暂无 provider 源</span>`}
+          ${providers.map((source) => `<span class="chip">${escapeHtml(providerName(source))}</span>`).join("") || `<span class="hint">${t("status.notImported")}</span>`}
         </div>
       </div>
       <div class="visual-row">
-        <div class="visual-label">代理组</div>
+        <div class="visual-label">${t("groups.title")}</div>
         <div class="chip-cloud">
-          ${groups.map((group) => `<span class="chip">${escapeHtml(group.name)} · ${escapeHtml(group.type)}</span>`).join("")}
+          ${groups.map((group) => `<span class="chip">${escapeHtml(moduleDisplayName(group.name))} · ${escapeHtml(group.type)}</span>`).join("")}
         </div>
       </div>
       <div class="visual-row">
-        <div class="visual-label">规则模块</div>
+        <div class="visual-label">${t("rules.title")}</div>
         <div class="chip-cloud">
-          ${enabledModules.map((module) => `<span class="chip">${escapeHtml(module.name)}</span>`).join("")}
+          ${enabledModules.map((module) => `<span class="chip">${escapeHtml(moduleDisplayName(module))}</span>`).join("")}
         </div>
       </div>
     </div>
@@ -1025,13 +1756,13 @@ function renderSystemPanel() {
   return renderAdvancedCard({
     id: "system",
     icon: icon("settings"),
-    title: "系统设置",
-    subtitle: "端口、测速、局域网、IPv6 和 DNS YAML",
+    title: t("system.title"),
+    subtitle: t("system.subtitle"),
     badge: `:${state.base.mixedPort || 7890}`,
     body: `
       <div class="grid-2">
-        <label>配置名称
-          <input data-field="profileName" value="${attr(state.profileName)}" placeholder="我的配置">
+        <label>${t("system.profileName")}
+          <input data-field="profileName" value="${attr(state.profileName)}" placeholder="${attr(t("system.profilePlaceholder"))}">
         </label>
       </div>
       <div class="grid-3">
@@ -1039,35 +1770,63 @@ function renderSystemPanel() {
           <input type="number" min="1" max="65535" data-field="base.mixedPort" value="${attr(state.base.mixedPort)}">
         </label>
         <label>socks-port
-          <input type="number" min="1" max="65535" data-field="base.socksPort" value="${attr(state.base.socksPort)}" placeholder="可空">
+          <input type="number" min="1" max="65535" data-field="base.socksPort" value="${attr(state.base.socksPort)}" placeholder="${attr(t("common.empty"))}">
         </label>
         <label>redir-port
-          <input type="number" min="1" max="65535" data-field="base.redirPort" value="${attr(state.base.redirPort)}" placeholder="可空">
+          <input type="number" min="1" max="65535" data-field="base.redirPort" value="${attr(state.base.redirPort)}" placeholder="${attr(t("common.empty"))}">
         </label>
       </div>
       <div class="grid-3">
-        <label>运行模式
+        <label>${t("system.mode")}
           <select data-field="base.mode">
             ${["rule", "global", "direct"].map((mode) => `<option value="${mode}" ${state.base.mode === mode ? "selected" : ""}>${mode}</option>`).join("")}
           </select>
         </label>
-        <label>测速 URL
+        <label>${t("system.testUrl")}
           <input data-field="base.testUrl" value="${attr(state.base.testUrl)}">
         </label>
-        <label>测速间隔秒
+        <label>${t("system.testInterval")}
           <input type="number" min="30" data-field="base.testInterval" value="${attr(state.base.testInterval)}">
         </label>
       </div>
       <div class="row wrap">
-        ${renderCheck("base.allowLan", state.base.allowLan, "允许局域网连接")}
-        ${renderCheck("base.ipv6", state.base.ipv6, "启用 IPv6")}
+        ${renderCheck("base.allowLan", state.base.allowLan, t("system.allowLan"))}
+        ${renderCheck("base.ipv6", state.base.ipv6, t("system.ipv6"))}
       </div>
       <div class="source-item">
         <div class="row between wrap">
           <strong>DNS YAML</strong>
-          <button class="btn" data-action="reset-dns">${icon("refresh")}恢复默认</button>
+          <button class="btn" data-action="reset-dns">${icon("refresh")}${t("system.resetDns")}</button>
         </div>
         <textarea class="mono" data-field="dnsYaml" style="min-height: 260px;">${escapeHtml(state.dnsYaml)}</textarea>
+      </div>
+      <div class="source-item">
+        <div class="row between wrap">
+          <strong>${t("system.dnsPolicyTitle")}</strong>
+          <span class="hint">${t("system.dnsPolicyHint")}</span>
+        </div>
+        <div class="grid-2">
+          <label>${t("system.dnsPolicyDomain")}
+            <input data-new-dns="domain" value="${attr(state.newDnsPolicy.domain)}" placeholder="${attr(t("system.dnsPolicyDomainPlaceholder"))}">
+          </label>
+          <label>${t("system.dnsPolicyServer")}
+            <input data-new-dns="server" value="${attr(state.newDnsPolicy.server)}" placeholder="${attr(t("system.dnsPolicyServerPlaceholder"))}">
+          </label>
+        </div>
+        <div class="row between wrap">
+          <span class="hint">${state.dnsPolicies.length ? localText(`当前 ${state.dnsPolicies.length} 条映射`, `${state.dnsPolicies.length} mapping${state.dnsPolicies.length === 1 ? "" : "s"}`) : t("system.noDnsPolicy")}</span>
+          <button class="btn primary" data-action="add-dns-policy">${icon("plus")}${t("system.addDnsPolicy")}</button>
+        </div>
+        ${state.dnsPolicies.length ? `
+          <div class="item-list dns-policy-list">
+            ${state.dnsPolicies.map((policy) => `
+              <div class="deleted-item row between">
+                <span class="muted">${escapeHtml(policy.domain)} -> ${escapeHtml(policy.server)}</span>
+                <button class="btn icon danger" data-action="remove-dns-policy" data-id="${attr(policy.id)}" title="${attr(t("system.removeDnsPolicy"))}">${icon("trash")}</button>
+              </div>
+            `).join("")}
+          </div>
+        ` : ""}
       </div>
     `
   });
@@ -1098,7 +1857,7 @@ function renderValidationSummary() {
   if (!errors.length && !warnings.length) return "";
   return `
     <div class="validation-box ${errors.length ? "bad" : "warn"}">
-      <strong>${errors.length ? "生成前需要修正" : "可用性提醒"}</strong>
+      <strong>${errors.length ? t("validation.errorTitle") : t("validation.warnTitle")}</strong>
       <ul>
         ${errors.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
         ${warnings.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
@@ -1144,13 +1903,17 @@ async function handleClick(event) {
     "remove-filter": () => removeFilter(button.dataset.id),
     "add-chain": addChain,
     "remove-chain": () => removeChain(button.dataset.id),
+    "add-dns-policy": addDnsPolicy,
+    "remove-dns-policy": () => removeDnsPolicy(button.dataset.id),
     "import-rules": importRules,
     "remove-rule": () => removeRule(button.dataset.id),
     "reset-dns": resetDns,
     "generate": generateAndRender,
     "copy-yaml": copyYaml,
     "download-yaml": downloadYaml,
-    "set-preview-tab": () => setPreviewTab(button.dataset.tab)
+    "set-preview-tab": () => setPreviewTab(button.dataset.tab),
+    "set-theme": () => setThemePreference(button.dataset.theme),
+    "set-language": () => setLanguage(button.dataset.lang)
   };
 
   const handler = actionMap[action];
@@ -1184,6 +1947,11 @@ function handleInput(event) {
   }
   if (el.dataset.newChain) {
     state.newChain[el.dataset.newChain] = readInputValue(el);
+    saveState();
+    return;
+  }
+  if (el.dataset.newDns) {
+    state.newDnsPolicy[el.dataset.newDns] = readInputValue(el);
     saveState();
   }
 }
@@ -1249,6 +2017,11 @@ function handleChange(event) {
   if (el.dataset.newChain) {
     state.newChain[el.dataset.newChain] = readInputValue(el);
     saveState();
+    return;
+  }
+  if (el.dataset.newDns) {
+    state.newDnsPolicy[el.dataset.newDns] = readInputValue(el);
+    saveState();
   }
 }
 
@@ -1276,7 +2049,7 @@ function updateSource(id, field, value) {
   if (!source) return;
   source[field] = value;
   if (field === "type") {
-    source.status = "未导入";
+    source.status = t("status.notImported");
     source.error = "";
     if (value !== "url") source.providerMode = false;
   }
@@ -1303,7 +2076,7 @@ function removeSource(id) {
   state.nodes = state.nodes.filter((node) => node.sourceId !== id);
   saveState();
   render();
-  toast("导入源已删除，相关节点已移到删除列表", "warn");
+  toast(t("toast.sourceRemoved"), "warn");
 }
 
 function inferSourceType(source) {
@@ -1327,25 +2100,28 @@ async function importSource(id) {
   source.type = inferSmartSourceType(items, source);
 
   source.error = "";
-  source.status = source.providerMode ? "provider 模式已保存" : "解析中...";
+  source.status = source.providerMode ? t("status.providerSaved") : t("status.parsing");
   saveState();
   render();
 
   try {
-    if (!items.length) throw new Error("请先粘贴订阅链接或节点链接");
+    if (!items.length) throw new Error(t("error.pasteFirst"));
 
     if (source.providerMode) {
       const urls = items.filter((item) => item.kind === "url");
       if (items.length !== 1 || urls.length !== 1) {
-        throw new Error("proxy-providers 只适合单个订阅链接；混合输入请关闭该选项");
+        throw new Error(t("error.providerSingleUrl"));
+      }
+      if (String(source.requestHeaders || "").trim()) {
+        throw new Error(localText("临时请求头只能用于解析成静态节点，请关闭 proxy-providers。", "Temporary request headers only work when parsing into static nodes. Disable proxy-providers."));
       }
       source.type = "url";
       source.nodeIds = [];
-      source.status = "provider 模式";
+      source.status = t("status.providerMode");
       state.nodes = state.nodes.filter((node) => node.sourceId !== source.id);
       saveState();
       render();
-      toast("已保存为 proxy-provider 源", "good");
+      toast(t("toast.providerSaved"), "good");
       return;
     }
 
@@ -1356,16 +2132,16 @@ async function importSource(id) {
     const resolvedItems = await resolveSmartInput(source, items);
     for (const item of resolvedItems) {
       if (item.error && !item.body) {
-        errors.push(`${item.url || "输入内容"}：${item.error}`);
+        errors.push(`${item.url || t("source.title")}：${item.error}`);
         continue;
       }
       const itemNodes = parseInputContent(item.body || "", source);
       parsed.push(...itemNodes);
       if (item.userinfo) userinfo = item.userinfo;
-      if (!itemNodes.length) errors.push(item.url ? `订阅未解析到节点：${item.url}` : "粘贴内容里有片段未解析到节点");
+      if (!itemNodes.length) errors.push(item.url ? t("error.noNodesInSubscription", { url: item.url }) : t("error.unparsedChunk"));
     }
 
-    if (!parsed.length) throw new Error(errors[0] || "未解析到有效节点");
+    if (!parsed.length) throw new Error(errors[0] || t("error.noParsedNodes"));
 
     const previous = new Map(state.nodes.filter((node) => node.sourceId === source.id).map((node) => [node.originName, node]));
     const nodes = parsed.map((node, index) => {
@@ -1385,15 +2161,15 @@ async function importSource(id) {
 
     state.nodes = state.nodes.filter((node) => node.sourceId !== source.id).concat(nodes);
     source.nodeIds = nodes.map((node) => node.id);
-    source.status = errors.length ? `已导入 ${nodes.length} 节点，${errors.length} 个提醒` : `已导入 ${nodes.length} 节点`;
+    source.status = importedStatusText(nodes.length, errors.length);
     source.error = "";
     if (userinfo) source.userinfo = userinfo;
     saveState();
     render();
-    toast(`已导入 ${nodes.length} 个节点`, errors.length ? "warn" : "good");
+    toast(importedStatusText(nodes.length), errors.length ? "warn" : "good");
   } catch (error) {
-    source.error = error.message || "导入失败";
-    source.status = "导入失败";
+    source.error = error.message || t("status.importFailed");
+    source.status = t("status.importFailed");
     saveState();
     render();
     toast(source.error, "bad");
@@ -1438,9 +2214,17 @@ function inferSmartSourceType(items, source) {
 }
 
 async function fetchSubscriptionContent(url, source) {
-  const response = await fetch(`/api/fetch?url=${encodeURIComponent(url)}&ua=${encodeURIComponent(source.userAgent || "")}`);
+  const response = await fetch("/api/fetch", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      url,
+      userAgent: source.userAgent || "",
+      headers: requestHeadersForSource(source)
+    })
+  });
   const data = await response.json();
-  if (!data.ok && !data.body) throw new Error(data.error || `远程返回 HTTP ${data.status || "错误"}`);
+  if (!data.ok && !data.body) throw new Error(data.error || t("error.remoteHttp", { status: data.status || "error" }));
   const rawUserinfo = data.headers?.["subscription-userinfo"] || "";
   return {
     body: data.body || "",
@@ -1448,44 +2232,58 @@ async function fetchSubscriptionContent(url, source) {
   };
 }
 
-async function resolveSmartInput(source, fallbackItems) {
-  try {
-    const response = await fetch("/api/resolve", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        content: source.content || "",
-        userAgent: source.userAgent || ""
-      })
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-    if (!data.ok || !Array.isArray(data.items)) throw new Error(data.error || "后端解析失败");
-    return data.items.map((item) => {
-      const rawUserinfo = item.headers?.["subscription-userinfo"] || "";
-      return {
-        body: item.body || "",
-        url: item.url || "",
-        error: item.error || "",
-        userinfo: parseUserInfo(rawUserinfo) || rawUserinfo
-      };
-    });
-  } catch {
-    const resolved = [];
-    for (const item of fallbackItems) {
-      if (item.kind !== "url") {
-        resolved.push({ body: item.value, url: "", error: "", userinfo: "" });
-        continue;
-      }
-      try {
-        const remote = await fetchSubscriptionContent(item.value, source);
-        resolved.push({ body: remote.body, url: item.value, error: "", userinfo: remote.userinfo });
-      } catch (error) {
-        resolved.push({ body: "", url: item.value, error: error.message || "获取失败", userinfo: "" });
-      }
-    }
-    return resolved;
+const BLOCKED_HEADER_NAMES = new Set([
+  "host",
+  "connection",
+  "content-length",
+  "transfer-encoding",
+  "upgrade",
+  "keep-alive",
+  "proxy-authenticate",
+  "proxy-authorization",
+  "te",
+  "trailer"
+]);
+
+function requestHeadersForSource(source) {
+  const headers = parseHeaderText(source.requestHeaders || "");
+  const userAgent = String(source.userAgent || "").trim();
+  if (userAgent) headers["user-agent"] = userAgent;
+  return headers;
+}
+
+function parseHeaderText(text) {
+  const headers = {};
+  for (const rawLine of String(text || "").split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#")) continue;
+    const index = line.indexOf(":");
+    if (index <= 0) continue;
+    const name = line.slice(0, index).trim().toLowerCase();
+    const value = line.slice(index + 1).trim();
+    if (!/^[a-z0-9!#$%&'*+.^_`|~-]+$/i.test(name)) continue;
+    if (BLOCKED_HEADER_NAMES.has(name) || name.startsWith(":")) continue;
+    if (!value || value.length > 4096) continue;
+    headers[name] = value;
   }
+  return headers;
+}
+
+async function resolveSmartInput(source, fallbackItems) {
+  const resolved = [];
+  for (const item of fallbackItems) {
+    if (item.kind !== "url") {
+      resolved.push({ body: item.value, url: "", error: "", userinfo: "" });
+      continue;
+    }
+    try {
+      const remote = await fetchSubscriptionContent(item.value, source);
+      resolved.push({ body: remote.body, url: item.value, error: "", userinfo: remote.userinfo });
+    } catch (error) {
+      resolved.push({ body: "", url: item.value, error: error.message || t("error.fetchFailed"), userinfo: "" });
+    }
+  }
+  return resolved;
 }
 
 function parseUserInfo(header) {
@@ -1497,7 +2295,7 @@ function parseUserInfo(header) {
   const used = formatBytes((pairs.upload || 0) + (pairs.download || 0));
   const total = pairs.total ? formatBytes(pairs.total) : "";
   const expire = pairs.expire ? new Date(pairs.expire * 1000).toISOString().slice(0, 10) : "";
-  return [total ? `${used}/${total}` : used, expire ? `到期 ${expire}` : ""].filter(Boolean).join(" · ");
+  return [total ? `${used}/${total}` : used, expire ? `${localText("到期", "expires")} ${expire}` : ""].filter(Boolean).join(" · ");
 }
 
 function formatBytes(bytes) {
@@ -1567,7 +2365,7 @@ function parseNodeLine(line) {
     if (lower.startsWith("anytls://")) return [parseUrlNode(line, "anytls")];
     if (lower.startsWith("socks5://") || lower.startsWith("socks4://")) return [parseUrlNode(line, "socks5")];
   } catch (error) {
-    console.warn("Parse node failed", error, line);
+    console.warn("Parse node failed", error?.message || error);
   }
   return [];
 }
@@ -1860,7 +2658,7 @@ function applyTemplate(templateId) {
   state.modules = Object.fromEntries(MODULES.map((module) => [module.id, template.modules.includes(module.id)]));
   saveState();
   render();
-  toast(`已应用 ${template.name}`, "good");
+  toast(t("toast.templateApplied", { name: templateName(templateId) }), "good");
 }
 
 function clearNodes() {
@@ -1870,7 +2668,7 @@ function clearNodes() {
   for (const source of state.sources) source.nodeIds = [];
   saveState();
   render();
-  toast("节点已清空，可在删除列表恢复", "warn");
+  toast(t("toast.nodesCleared"), "warn");
 }
 
 function deleteNode(id) {
@@ -1929,7 +2727,7 @@ function bulkRename() {
     try {
       findRegex = new RegExp(state.bulk.find, "g");
     } catch {
-      toast("查找正则无效", "bad");
+      toast(t("toast.invalidRegex"), "bad");
       return;
     }
   }
@@ -1947,14 +2745,14 @@ function bulkRename() {
   }
   saveState();
   render();
-  toast(`已重命名 ${changed} 个节点`, changed ? "good" : "warn");
+  toast(t("toast.renamedNodes", { count: changed }), changed ? "good" : "warn");
 }
 
 function fillPorts() {
   const start = Number(state.bulk.portStart);
   const targets = bulkCandidates();
   if (!Number.isInteger(start) || start < 1 || start + targets.length - 1 > 65535) {
-    toast("起始端口无效或超出范围", "bad");
+    toast(t("toast.invalidPortStart"), "bad");
     return;
   }
   targets.forEach((node, index) => {
@@ -1962,7 +2760,7 @@ function fillPorts() {
   });
   saveState();
   render();
-  toast(`已填充 ${targets.length} 个监听端口`, "good");
+  toast(t("toast.filledPorts", { count: targets.length }), "good");
 }
 
 function clearPorts() {
@@ -1972,7 +2770,7 @@ function clearPorts() {
   });
   saveState();
   render();
-  toast(`已删除 ${targets.length} 个监听端口`, "good");
+  toast(t("toast.clearedPorts", { count: targets.length }), "good");
 }
 
 function matchFilterDraft(nodes) {
@@ -2002,7 +2800,7 @@ function addFilter() {
   const name = state.newFilter.name.trim() || `筛选组 ${state.filterGroups.length + 1}`;
   const matches = matchFilterDraft(nodes);
   if (!matches.length) {
-    toast("当前筛选条件没有命中节点", "warn");
+    toast(t("toast.noFilterMatches"), "warn");
   }
   state.filterGroups.push({
     id: uid("filter"),
@@ -2028,7 +2826,7 @@ function addChain() {
   const entry = state.nodes.find((node) => node.id === state.newChain.entry);
   const exit = state.nodes.find((node) => node.id === state.newChain.exit);
   if (!entry || !exit || entry.id === exit.id) {
-    toast("请选择不同的入口和落地节点", "bad");
+    toast(t("toast.needDifferentChainNodes"), "bad");
     return;
   }
   state.chainGroups.push({
@@ -2045,6 +2843,30 @@ function addChain() {
 
 function removeChain(id) {
   state.chainGroups = state.chainGroups.filter((group) => group.id !== id);
+  saveState();
+  render();
+}
+
+function addDnsPolicy() {
+  const domain = String(state.newDnsPolicy.domain || "").trim();
+  const server = String(state.newDnsPolicy.server || "").trim();
+  if (!domain || !server) {
+    toast(t("toast.invalidDnsPolicy"), "bad");
+    return;
+  }
+  state.dnsPolicies.push({
+    id: uid("dns"),
+    domain,
+    server
+  });
+  state.newDnsPolicy = { domain: "", server: "" };
+  saveState();
+  render();
+  toast(t("toast.dnsPolicyAdded"), "good");
+}
+
+function removeDnsPolicy(id) {
+  state.dnsPolicies = state.dnsPolicies.filter((policy) => policy.id !== id);
   saveState();
   render();
 }
@@ -2067,7 +2889,7 @@ function importRules() {
   state.ruleInput = "";
   saveState();
   render();
-  toast(`已导入 ${added} 条规则`, added ? "good" : "warn");
+  toast(t("toast.importedRules", { count: added }), added ? "good" : "warn");
 }
 
 function normalizeRuleLine(line, fallbackTarget) {
@@ -2097,7 +2919,7 @@ function generateAndRender() {
     state.validation = preflight;
     saveState();
     render();
-    toast("配置未生成，请先修正校验错误", "bad");
+    toast(t("toast.fixErrors"), "bad");
     return;
   }
 
@@ -2111,16 +2933,16 @@ function generateAndRender() {
     state.validation = validation;
     saveState();
     render();
-    toast("生成结果存在语法风险，已阻止更新", "bad");
+    toast(t("toast.generatedBlocked"), "bad");
     return;
   }
 
   state.preview = yaml;
   state.validation = validation;
-  state.lastGeneratedAt = new Date().toLocaleString("zh-CN", { hour12: false });
+  state.lastGeneratedAt = new Date().toLocaleString(localeCode(), { hour12: false });
   saveState();
   render();
-  toast(validation.warnings.length ? "配置已生成，但有提醒需要留意" : "配置已生成", validation.warnings.length ? "warn" : "good");
+  toast(validation.warnings.length ? t("toast.generatedWarn") : t("toast.generated"), validation.warnings.length ? "warn" : "good");
 }
 
 function validateBeforeGenerate() {
@@ -2130,7 +2952,7 @@ function validateBeforeGenerate() {
   const providers = getProviderSources();
 
   if (!activeNodes.length && !providers.length) {
-    errors.push("至少需要一个启用节点，或一个 proxy-providers 订阅源。");
+    errors.push(t("validation.needNode"));
   }
 
   const usedPorts = new Map();
@@ -2139,36 +2961,36 @@ function validateBeforeGenerate() {
   validatePort("redir-port", state.base.redirPort, false, errors, usedPorts);
 
   if (!["rule", "global", "direct"].includes(state.base.mode || "rule")) {
-    errors.push("运行模式只能是 rule、global 或 direct。");
+    errors.push(t("validation.mode"));
   }
 
   if (!isHttpUrl(state.base.testUrl)) {
-    errors.push("测速 URL 必须是 http 或 https 地址。");
+    errors.push(t("validation.testUrl"));
   }
 
   if (!Number.isInteger(Number(state.base.testInterval)) || Number(state.base.testInterval) < 30) {
-    errors.push("测速间隔至少需要 30 秒。");
+    errors.push(t("validation.testInterval"));
   }
 
   for (const node of activeNodes) {
     validateNode(node, errors, warnings);
-    validatePort(`节点「${node.name}」监听端口`, node.listenerPort, false, errors, usedPorts);
+    validatePort(localText(`节点「${node.name}」监听端口`, `Node "${node.name}" listener port`), node.listenerPort, false, errors, usedPorts);
   }
 
   for (const source of providers) {
     if (!isHttpUrl(providerUrl(source))) {
-      errors.push(`Provider 源「${source.name || source.id}」必须使用 http/https 订阅链接。`);
+      errors.push(t("validation.providerUrl", { name: source.name || source.id }));
     }
   }
 
   for (const group of state.filterGroups) {
-    validateRegex(`筛选组「${group.name}」包含正则`, group.include, errors);
-    validateRegex(`筛选组「${group.name}」排除正则`, group.exclude, errors);
+    validateRegex(localText(`筛选组「${group.name}」包含正则`, `Filter group "${group.name}" include regex`), group.include, errors);
+    validateRegex(localText(`筛选组「${group.name}」排除正则`, `Filter group "${group.name}" exclude regex`), group.exclude, errors);
   }
 
   for (const rule of state.customRules) {
     if (!isValidRuleLine(rule.line)) {
-      errors.push(`自定义规则格式不正确：${rule.line}`);
+      errors.push(localText(`自定义规则格式不正确：${rule.line}`, `Custom rule has invalid syntax: ${rule.line}`));
     }
   }
 
@@ -2177,7 +2999,7 @@ function validateBeforeGenerate() {
 
   const names = activeNodes.map((node) => node.name).filter(Boolean);
   if (new Set(names).size !== names.length) {
-    warnings.push("存在重复节点名，生成时会自动追加序号避免 YAML 代理名冲突。");
+    warnings.push(t("validation.duplicateNames"));
   }
 
   return { errors, warnings };
@@ -2185,17 +3007,17 @@ function validateBeforeGenerate() {
 
 function validatePort(label, value, required, errors, usedPorts) {
   if (value === "" || value === undefined || value === null) {
-    if (required) errors.push(`${label} 必须填写。`);
+    if (required) errors.push(t("validation.portRequired", { label }));
     return;
   }
   const port = Number(value);
   if (!Number.isInteger(port) || port < 1 || port > 65535) {
-    errors.push(`${label} 必须是 1-65535 的整数。`);
+    errors.push(t("validation.portInteger", { label }));
     return;
   }
   const owner = usedPorts.get(port);
   if (owner) {
-    errors.push(`${label} 与 ${owner} 使用了同一个端口 ${port}。`);
+    errors.push(t("validation.portDuplicate", { label, owner, port }));
     return;
   }
   usedPorts.set(port, label);
@@ -2206,7 +3028,7 @@ function validateRegex(label, pattern, errors) {
   try {
     new RegExp(pattern, "i");
   } catch {
-    errors.push(`${label} 不是有效正则。`);
+    errors.push(t("validation.invalidRegex", { label }));
   }
 }
 
@@ -2221,17 +3043,17 @@ function isHttpUrl(value) {
 
 function validateNode(node, errors, warnings) {
   const label = node.name || node.originName || node.id;
-  if (!node.name) errors.push("存在未命名节点。");
-  if (!node.type) errors.push(`节点「${label}」缺少 type。`);
+  if (!node.name) errors.push(t("validation.nodeUnnamed"));
+  if (!node.type) errors.push(t("validation.nodeMissingType", { label }));
 
   if (node.fromYaml) {
-    if (!node.name || !node.type) errors.push(`YAML 节点「${label}」缺少 name 或 type。`);
+    if (!node.name || !node.type) errors.push(t("validation.yamlNodeMissing", { label }));
     return;
   }
 
-  if (!node.server) errors.push(`节点「${label}」缺少 server。`);
+  if (!node.server) errors.push(t("validation.nodeMissingServer", { label }));
   if (!Number.isInteger(Number(node.port)) || Number(node.port) < 1 || Number(node.port) > 65535) {
-    errors.push(`节点「${label}」端口无效。`);
+    errors.push(t("validation.nodeInvalidPort", { label }));
   }
 
   const requiredByType = {
@@ -2246,38 +3068,38 @@ function validateNode(node, errors, warnings) {
   };
 
   for (const field of requiredByType[node.type] || []) {
-    if (!node[field]) errors.push(`节点「${label}」缺少 ${field}。`);
+    if (!node[field]) errors.push(t("validation.nodeMissingField", { label, field }));
   }
 
   if (!requiredByType[node.type] && !["socks5"].includes(node.type)) {
-    warnings.push(`节点「${label}」类型 ${node.type} 可能需要手动确认客户端是否支持。`);
+    warnings.push(t("validation.nodeUnsupported", { label, type: node.type }));
   }
 }
 
 function validateDnsYaml(text) {
   const errors = [];
   const value = String(text || "").trim();
-  if (!value) return ["DNS YAML 不能为空。"];
-  if (!/^dns\s*:/m.test(value)) errors.push("DNS YAML 必须包含顶层 dns:。");
-  if (/\t/.test(value)) errors.push("DNS YAML 不能包含 Tab，请使用空格缩进。");
-  if (/\bundefined\b|\bNaN\b/.test(value)) errors.push("DNS YAML 中包含 undefined 或 NaN。");
+  if (!value) return [t("validation.dnsEmpty")];
+  if (!/^dns\s*:/m.test(value)) errors.push(t("validation.dnsRoot"));
+  if (/\t/.test(value)) errors.push(t("validation.dnsTab"));
+  if (/\bundefined\b|\bNaN\b/.test(value)) errors.push(t("validation.dnsUndefined"));
 
   const quoteErrors = value.split(/\r?\n/).some((line) => {
     const stripped = line.replace(/\\["']/g, "");
     return (stripped.match(/"/g) || []).length % 2 || (stripped.match(/'/g) || []).length % 2;
   });
-  if (quoteErrors) errors.push("DNS YAML 中存在未闭合的引号。");
+  if (quoteErrors) errors.push(t("validation.dnsQuote"));
 
   const topLevel = value.split(/\r?\n/).filter((line) => /^[^\s#][^:]*:\s*/.test(line)).map((line) => line.split(":")[0].trim());
   const unexpected = topLevel.filter((key) => key !== "dns");
   if (unexpected.length) {
-    errors.push(`DNS 编辑区只能放 dns 配置，不应包含顶层字段：${unique(unexpected).join("、")}。`);
+    errors.push(t("validation.dnsTopKeys", { keys: unique(unexpected).join(getLang() === "en" ? ", " : "、") }));
   }
 
   value.split(/\r?\n/).forEach((line, index) => {
     if (!line.trim() || line.trim().startsWith("#")) return;
     const indent = line.match(/^\s*/)[0].length;
-    if (indent % 2 !== 0) errors.push(`DNS YAML 第 ${index + 1} 行缩进不是 2 的倍数。`);
+    if (indent % 2 !== 0) errors.push(t("validation.dnsIndent", { line: index + 1 }));
   });
 
   return unique(errors);
@@ -2296,20 +3118,56 @@ function isValidRuleLine(line) {
 function validateGeneratedYamlText(yaml) {
   const errors = [];
   const warnings = [];
-  if (/\bundefined\b|\bNaN\b/.test(yaml)) errors.push("生成结果中包含 undefined 或 NaN。");
+  if (/\bundefined\b|\bNaN\b/.test(yaml)) errors.push(t("validation.generatedUndefined"));
   for (const section of ["proxies:", "proxy-groups:", "rules:"]) {
-    if (!yaml.includes(section)) errors.push(`生成结果缺少 ${section}`);
+    if (!yaml.includes(section)) errors.push(t("validation.generatedMissing", { section }));
   }
-  if (/port:\s*0\b/.test(yaml)) errors.push("生成结果中存在 0 端口。");
+  if (/port:\s*0\b/.test(yaml)) errors.push(t("validation.generatedZeroPort"));
 
   const topKeys = yaml.split(/\r?\n/)
     .filter((line) => /^[A-Za-z][A-Za-z0-9-]*:\s*/.test(line))
     .map((line) => line.split(":")[0]);
   const duplicates = topKeys.filter((key, index) => topKeys.indexOf(key) !== index);
-  if (duplicates.length) errors.push(`生成结果存在重复顶层字段：${unique(duplicates).join("、")}。`);
+  if (duplicates.length) errors.push(t("validation.generatedDuplicateTop", { keys: unique(duplicates).join(getLang() === "en" ? ", " : "、") }));
 
-  if (!yaml.includes("MATCH,")) warnings.push("生成结果没有 MATCH 兜底规则。");
+  if (!yaml.includes("MATCH,")) warnings.push(t("validation.noMatch"));
   return { errors: unique(errors), warnings: unique(warnings) };
+}
+
+function buildDnsYaml() {
+  const base = (state.dnsYaml || DEFAULT_DNS).trimEnd();
+  const policies = normalizedDnsPolicies();
+  if (!policies.length) return base;
+  return insertDnsPolicies(base, policies);
+}
+
+function normalizedDnsPolicies() {
+  const result = new Map();
+  for (const policy of state.dnsPolicies || []) {
+    const domain = String(policy.domain || "").trim();
+    const server = String(policy.server || "").trim();
+    if (!domain || !server) continue;
+    result.set(domain, server);
+  }
+  return [...result.entries()].map(([domain, server]) => ({ domain, server }));
+}
+
+function insertDnsPolicies(base, policies) {
+  const entries = policies.map((policy) => `    ${yamlScalar(policy.domain)}: ${yamlScalar(policy.server)}`);
+  const lines = base.split(/\r?\n/);
+  const policyIndex = lines.findIndex((line) => /^ {2}nameserver-policy\s*:\s*$/.test(line));
+  if (policyIndex >= 0) {
+    let insertIndex = lines.length;
+    for (let index = policyIndex + 1; index < lines.length; index += 1) {
+      if (/^ {2}\S/.test(lines[index]) && !/^ {4}/.test(lines[index])) {
+        insertIndex = index;
+        break;
+      }
+    }
+    lines.splice(insertIndex, 0, ...entries);
+    return lines.join("\n");
+  }
+  return `${base}\n  nameserver-policy:\n${entries.join("\n")}`;
 }
 
 function generateConfig() {
@@ -2361,7 +3219,7 @@ function generateConfig() {
     "# Generated by subpanel",
     toYaml(config).trim(),
     "",
-    (state.dnsYaml || DEFAULT_DNS).trim(),
+    buildDnsYaml(),
     "",
     proxyProviders && Object.keys(proxyProviders).length ? `proxy-providers:\n${toYaml(proxyProviders, 2).trimEnd()}` : "",
     activeNodes.length ? `proxies:\n${toYaml(activeNodes.map(nodeToProxy), 2).trimEnd()}` : "proxies: []",
@@ -2406,14 +3264,14 @@ function policyOptionsForGroup(group) {
   const module = moduleByName(group);
   if (module?.groupType === "reject-first") {
     return [
-      { value: "reject", label: POLICY_LABELS.reject },
-      { value: "proxy", label: POLICY_LABELS.proxy },
-      { value: "direct", label: POLICY_LABELS.direct }
+      { value: "reject", label: policyLabel("reject") },
+      { value: "proxy", label: policyLabel("proxy") },
+      { value: "direct", label: policyLabel("direct") }
     ];
   }
   return [
-    { value: "proxy", label: POLICY_LABELS.proxy },
-    { value: "direct", label: POLICY_LABELS.direct }
+    { value: "proxy", label: policyLabel("proxy") },
+    { value: "direct", label: policyLabel("direct") }
   ];
 }
 
@@ -2421,9 +3279,9 @@ function summarizePolicies(groups) {
   const direct = groups.filter((group) => getGroupPolicy(group) === "direct").length;
   const reject = groups.filter((group) => getGroupPolicy(group) === "reject").length;
   return [
-    `${groups.length - direct - reject} 代理`,
-    direct ? `${direct} 直连` : "",
-    reject ? `${reject} 拦截` : ""
+    `${groups.length - direct - reject} ${policyLabel("proxy")}`,
+    direct ? `${direct} ${policyLabel("direct")}` : "",
+    reject ? `${reject} ${policyLabel("reject")}` : ""
   ].filter(Boolean).join(" · ");
 }
 
@@ -2754,7 +3612,7 @@ function yamlScalar(value) {
 async function copyYaml() {
   const yaml = state.preview || generateConfig();
   await navigator.clipboard.writeText(yaml);
-  toast("YAML 已复制", "good");
+  toast(t("toast.copied"), "good");
 }
 
 function downloadYaml() {
@@ -2802,6 +3660,10 @@ function toast(message, type = "") {
   stack.appendChild(item);
   setTimeout(() => item.remove(), 3200);
 }
+
+window.matchMedia?.("(prefers-color-scheme: dark)")?.addEventListener?.("change", () => {
+  if ((state.ui?.theme || "system") === "system") applyPreferences();
+});
 
 render();
 attachEvents();
